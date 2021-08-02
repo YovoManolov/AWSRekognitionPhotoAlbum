@@ -1,17 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import {
+    Component, Input, OnChanges, SimpleChanges
+}
+    from '@angular/core';
+import {
+    ImageService
+}
+    from 'src/app/image/shared/image.service';
 
 @Component({
-  selector: 'app-gallery',
-  templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.css']
-})
-export class GalleryComponent implements OnInit {
+    selector: 'app-gallery',
+    templateUrl: './gallery.component.html', styleUrls: ['./gallery.component.css']
+}) export class GalleryComponent implements OnChanges {
 
-  title="Recent Photos";
+    title = "Recent Photos";
 
-  constructor() { }
+    @Input() filterBy?: string = 'all';
+    visibleImages: any[] = [];
 
-  ngOnInit(): void {
-  }
+    constructor(private imageService: ImageService) {
+        this.visibleImages = this.imageService.getImages();
+    }
+    ngOnChanges(): void {
+        this.visibleImages = this.imageService.getImages();
+    }
+
+    ngOnInit(): void { }
 
 }
