@@ -127,3 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+backend/FlaskRestApi/labels_rest_api/api_constants.py
+backend/FlaskRestApi/sample/api_constants.py
