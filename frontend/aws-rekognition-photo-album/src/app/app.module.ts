@@ -1,26 +1,27 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ImageFilterPipe } from './image/shared/filter.pipe';
+import { ImageFilterPipe } from './image/shared/image-filter-pipe/image-filter.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar/navbar.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { GalleryComponent } from './gallery/gallery/gallery.component';
-import { ImageDetailComponent } from './image/image-detail.component';
-import { appRoutes } from 'src/routs';
-import { RouterModule } from '@angular/router';
-import { ImageService } from './image/shared/image.service';
+import { ImageService } from './image/shared/image-service/image.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     GalleryComponent,
-    ImageDetailComponent,
-    ImageFilterPipe,
+    ImageFilterPipe
   ],
-  imports: [BrowserModule, AppRoutingModule, RouterModule.forRoot(appRoutes)],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule
+  ],
   providers: [ImageService, ImageFilterPipe],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

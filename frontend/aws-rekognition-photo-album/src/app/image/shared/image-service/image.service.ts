@@ -4,16 +4,22 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ImageService {
-  
+
   visibleImages: any[] = [];
   constructor() { }
-  getImages(){
+  getImages() {
     return this.visibleImages = IMAGES.slice(0);
   }
 
-  getImage(id: number){
-    return IMAGES.slice(0).find(image => image.id == id);
+  getImagesByCategory(category: string) {
+    this.visibleImages = IMAGES.slice(0).filter(image => image.category == category);
+    return this.visibleImages
   }
+
+  getImagesById(id: number) {
+    return this.visibleImages = IMAGES.slice(0).filter(image => image.id == id);
+  }
+
 }
 
 const IMAGES = [
@@ -38,7 +44,7 @@ const IMAGES = [
   {
     "id": 4,
     "category": "cars",
-    "caption": "View from a boat", 
+    "caption": "View from a boat",
     "url": "assets/resources/cars/4.png"
   },
   {

@@ -1,22 +1,9 @@
 
-from books import Book
-from flask import Flask, jsonify, request
-from flask.ctx import RequestContext
+from flask import jsonify, request
 from flask.helpers import make_response
 from flask_mongoengine import MongoEngine, json
+from flask import Flask
 from api_constants import mongodb_passowrd, database_name
-
-import urllib.request
-
-app = Flask(__name__)
-
-DB_URI = ("mongodb+srv://admin:{}@clusterawsrekognitionph.q1bc1.mongodb.net/{}?retryWrites=true&w=majority".format(mongodb_passowrd, database_name))
-app.config["MONGODB_HOST"] = DB_URI
-
-
-db = MongoEngine()
-db.init_app(app)
-
 
 # POST / api/db_populate -> Populates the db and returns 201 success code(empty repsonse body)
 
@@ -27,6 +14,29 @@ db.init_app(app)
 # GET / api/books/{book_id} -> Update author and name fields of book 3 (with 204 success code)
 
 # DELETE / api/books/{book_id} -> Deletes book 3 (with 204 success code)
+
+
+app = Flask(__name__)
+
+DB_URI = ("mongodb+srv://admin:{}@clusterawsrekognitionph.q1bc1.mongodb.net/{}?retryWrites=true&w=majority".format(mongodb_passowrd, database_name))
+app.config["MONGODB_HOST"] = DB_URI
+
+db = MongoEngine()
+db.init_app(app)
+
+
+class lables(db.Document):
+    book_id = db.IntField()
+    name = db.StringField()
+    author = db.StringField()
+
+    def toJson(self):
+        return{
+            "book_id": self.book_id,
+            "name": self.name,
+            "book_id": self.author
+        }
+
 
 @app.route('/')
 def flask_mongodb_atlas():
