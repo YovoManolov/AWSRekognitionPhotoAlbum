@@ -1,7 +1,6 @@
-<div class="row">
-    <ul id="thumbnailsList">
-        <li *ngFor="let image of visibleImages">
-            <img src="{{image.url}}" class="tn" width="200" height="160" />
-        </li>
-    </ul>
+<div fxLayout="row" fxLayoutAlign="space-around center">
+    <a *ngFor="let image of visibleImages" href="{{image.url}}"
+        target="_blank">
+        <img src="{{image.url}}" class="gallery__image" />
+    </a>
 </div>
