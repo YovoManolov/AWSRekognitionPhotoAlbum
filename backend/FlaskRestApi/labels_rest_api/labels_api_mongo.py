@@ -3,7 +3,7 @@ from flask import jsonify, request
 from flask.helpers import make_response
 from flask_mongoengine import MongoEngine, json
 from flask import Flask
-from api_constants import mongodb_passowrd, database_name
+from aws_constants import mongodb_passowrd, database_name
 
 # POST / api/db_populate -> Populates the db and returns 201 success code(empty repsonse body)
 

@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask.ctx import RequestContext
 from flask.helpers import make_response
 from flask_mongoengine import MongoEngine, json
-from api_constants import mongodb_passowrd, database_name
+from mongo_constants import mongodb_passowrd, database_name
 import urllib.request
 
 app = Flask(__name__)

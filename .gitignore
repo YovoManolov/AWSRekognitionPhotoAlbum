@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 backend/FlaskRestApi/labels_rest_api/api_constants.py
 backend/FlaskRestApi/sample/api_constants.py
+backend/FlaskRestApi/sample/mongo_constants.py
+backend/FlaskRestApi/labels_rest_api/aws_constants.py
