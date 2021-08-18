@@ -13,7 +13,8 @@ export class GalleryComponent implements OnInit {
   visibleImages: any[] = [];
   labelToFilter: string = "";
 
-  constructor(private imageService: ImageService,
+  constructor(
+    private imageService: ImageService,
     private route: ActivatedRoute) {
   }
 
@@ -40,6 +41,5 @@ export class GalleryComponent implements OnInit {
         this.visibleImages = this.imageService.getImagesByCategory(this.labelToFilter);
         break;
     }
-
   }
 }

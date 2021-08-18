@@ -1,0 +1,42 @@
+{
+  "Labels": [
+    {
+      "Name": "Sports Car",
+      "Confidence": 99.37098693847656,
+      "Instances": [],
+      "Parents": [
+        { "Name": "Car" },
+        { "Name": "Vehicle" },
+        { "Name": "Transportation" }
+      ]
+    },
+    {
+      "Name": "Car",
+      "Confidence": 99.37098693847656,
+      "Instances": [
+        {
+          "BoundingBox": {
+            "Width": 0.8040106892585754,
+            "Height": 0.5231191515922546,
+            "Left": 0.1231456995010376,
+            "Top": 0.28275418281555176
+          },
+          "Confidence": 99.2630615234375
+        }
+      ],
+      "Parents": [{ "Name": "Vehicle" }, { "Name": "Transportation" }]
+    },
+    {
+      "Name": "Vehicle",
+      "Confidence": 99.37098693847656,
+      "Instances": [],
+      "Parents": [{ "Name": "Transportation" }]
+    },
+    {
+      "Name": "Transportation",
+      "Confidence": 99.37098693847656,
+      "Instances": [],
+      "Parents": []
+    }
+  ]
+}
