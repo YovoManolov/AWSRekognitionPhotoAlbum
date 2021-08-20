@@ -1,59 +1,39 @@
-from backend.FlaskRestApi.labels_rest_api.labels_api_mongo import lables
+from jsonUtils import readJson, writeToJsonFile
 import json
-import pprint
-
-from requests.api import delete
-
-
-def writeResponseToJsonFile(result: dict):
-    a_file = open("backend/resources/json/labels_response.json", "r+")
-    json.dump(result, a_file)
-    a_file.close()
 
 
 def removeUnessecceryInfoFromJson():
-    read_file = open("backend/resources/json/labels_response.json", "r")
-    jsonDictToModify = json.load(read_file)
-    read_file.close()
-    # jsonDictToModify = deleteElement(jsonDictToModify, "LabelModelVersion")
-    # jsonDictToModify = deleteElement(jsonDictToModify, "ResponseMetadata")
-    # jsonDictToModify = deleteElement(jsonDictToModify, "RetryAttempts")
-
-    jsonDictToModify = del jsonDictToModify.lables.
-    jsonDictToModify = deleteElement(jsonDictToModify, "Parents")
-    fileWriteRef = open("backend/resources/json/labels_response.json", "w")
-    json.dump(jsonDictToModify, fileWriteRef)
-    fileWriteRef.close()
+    jsonDictToModify = loadDataIntoDictFromFile()
+    modifiedJsonResponse = deleteUnnecceryLabels(jsonDictToModify)
+    writeToJsonFile(modifiedJsonResponse)
     readJson()
 
 
-# def deleteElement(dataToModify: dict, label: str):
-#     for element in dataToModify:
-#         if isinstance(dataToModify.get(element), dict):
-#             return deleteElement(dataToModify.get(element), label)
-#         if isinstance(dataToModify.get(element), list):
-#             return deleteElement(dataToModify.get(element), label)
-#         elif(label in element):
-#             del dataToModify[label]
-#             return dataToModify
-#     return dataToModify
+def loadDataIntoDictFromFile():
+    read_file = open("backend/resources/json/labels_response.json", "r")
+    jsonDictToModify = json.load(read_file)
+    read_file.close()
+    return jsonDictToModify
 
-    def deleteElement(dataToModify: dict, label: str):
-        for key in dataToModify.keys:
-            if key == label:
-                del dataToModify[label]
-                return dataToModify
-            elif isinstance(dataToModify.get(key), list):
-                deleteElement()
+
+def deleteUnnecceryLabels(jsonDictToModify: dict):
+    jsonDictToModify = deleteElement(jsonDictToModify, "LabelModelVersion")
+    jsonDictToModify = deleteElement(jsonDictToModify, "ResponseMetadata")
+    jsonDictToModify = deleteElement(jsonDictToModify, "Instances")
+    jsonDictToModify = deleteElement(jsonDictToModify, "Parents")
+    return jsonDictToModify
+
+
+def deleteElement(dataToModify: dict, label: str):
+    for element in list(dataToModify):
+        if isinstance(dataToModify, str):
+            break
+        elif label in element:
+            del dataToModify[label]
+            break
+        elif isinstance(dataToModify.get(element), dict):
+            return deleteElement(element, label)
+        elif isinstance(dataToModify.get(element), list):
+            for val in dataToModify.get(element):
+                deleteElement(val, label)
     return dataToModify
-# https://stackoverflow.com/questions/15451290/remove-element-from-json-object
-
-
-def openJson():
-    return open("backend/resources/json/labels_response.json", "r+")
-
-
-def readJson():
-    jsonToRead = open("backend/resources/json/labels_response.json", "r")
-    print(json.load(jsonToRead))
-    jsonToRead.close()

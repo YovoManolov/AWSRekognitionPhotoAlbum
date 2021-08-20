@@ -1,42 +1,13 @@
 {
   "Labels": [
-    {
-      "Name": "Sports Car",
-      "Confidence": 99.37098693847656,
-      "Instances": [],
-      "Parents": [
-        { "Name": "Car" },
-        { "Name": "Vehicle" },
-        { "Name": "Transportation" }
-      ]
-    },
-    {
-      "Name": "Car",
-      "Confidence": 99.37098693847656,
-      "Instances": [
-        {
-          "BoundingBox": {
-            "Width": 0.8040106892585754,
-            "Height": 0.5231191515922546,
-            "Left": 0.1231456995010376,
-            "Top": 0.28275418281555176
-          },
-          "Confidence": 99.2630615234375
-        }
-      ],
-      "Parents": [{ "Name": "Vehicle" }, { "Name": "Transportation" }]
-    },
-    {
-      "Name": "Vehicle",
-      "Confidence": 99.37098693847656,
-      "Instances": [],
-      "Parents": [{ "Name": "Transportation" }]
-    },
-    {
-      "Name": "Transportation",
-      "Confidence": 99.37098693847656,
-      "Instances": [],
-      "Parents": []
-    }
+    { "Confidence": 99.37098693847656, "Name": "Sports Car" },
+    { "Confidence": 99.37098693847656, "Name": "Car" },
+    { "Confidence": 99.37098693847656, "Name": "Vehicle" },
+    { "Confidence": 99.37098693847656, "Name": "Transportation" },
+    { "Confidence": 99.37098693847656, "Name": "Automobile" },
+    { "Confidence": 87.58354949951172, "Name": "Race Car" },
+    { "Confidence": 86.85285949707031, "Name": "Coupe" },
+    { "Confidence": 67.74526977539062, "Name": "Jaguar Car" },
+    { "Confidence": 55.01775360107422, "Name": "Sedan" }
   ]
 }
