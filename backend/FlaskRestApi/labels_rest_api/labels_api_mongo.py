@@ -5,17 +5,6 @@ from flask_mongoengine import MongoEngine, json
 from flask import Flask
 from aws_constants import mongodb_passowrd, database_name
 
-# POST / api/db_populate -> Populates the db and returns 201 success code(empty repsonse body)
-
-# GET / api/books -> Returns the details of all books(with code 200 success code)
-
-# POST / api/books -> creates a new book and returns 201 success code(empty response body)
-
-# GET / api/books/{book_id} -> Update author and name fields of book 3 (with 204 success code)
-
-# DELETE / api/books/{book_id} -> Deletes book 3 (with 204 success code)
-
-
 app = Flask(__name__)
 
 DB_URI = ("mongodb+srv://admin:{}@clusterawsrekognitionph.q1bc1.mongodb.net/{}?retryWrites=true&w=majority".format(mongodb_passowrd, database_name))
