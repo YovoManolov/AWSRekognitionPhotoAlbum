@@ -1,11 +1,11 @@
-from jsonUtils import readJson, writeToJsonFile
+from jsonUtils import readJson, writeToJson
 import json
 
 
 def removeUnessecceryInfoFromJson():
     jsonDictToModify = loadDataIntoDictFromFile()
     modifiedJsonResponse = deleteUnnecceryLabels(jsonDictToModify)
-    writeToJsonFile(modifiedJsonResponse)
+    writeToJson(modifiedJsonResponse)
     readJson()
 
 

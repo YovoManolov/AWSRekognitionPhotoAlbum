@@ -130,4 +130,5 @@ dmypy.json
 backend/FlaskRestApi/labels_rest_api/api_constants.py
 backend/FlaskRestApi/sample/api_constants.py
 backend/FlaskRestApi/sample/mongo_constants.py
-backend/FlaskRestApi/labels_rest_api/aws_constants.py
+backend/DOCS/new_user_credentials.txt
+backend/FlaskRestApi/labels_rest_api/callToAws/aws_constants.py

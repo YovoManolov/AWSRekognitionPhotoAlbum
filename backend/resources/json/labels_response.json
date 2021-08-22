@@ -1,13 +1,8 @@
 {
   "Labels": [
-    { "Confidence": 99.37098693847656, "Name": "Sports Car" },
-    { "Confidence": 99.37098693847656, "Name": "Car" },
-    { "Confidence": 99.37098693847656, "Name": "Vehicle" },
-    { "Confidence": 99.37098693847656, "Name": "Transportation" },
-    { "Confidence": 99.37098693847656, "Name": "Automobile" },
-    { "Confidence": 87.58354949951172, "Name": "Race Car" },
-    { "Confidence": 86.85285949707031, "Name": "Coupe" },
-    { "Confidence": 67.74526977539062, "Name": "Jaguar Car" },
-    { "Confidence": 55.01775360107422, "Name": "Sedan" }
+    { "Name": "Sports Car", "Confidence": 99.37098693847656 },
+    { "Name": "Car", "Confidence": 99.37098693847656 },
+    { "Name": "Vehicle", "Confidence": 99.37098693847656 },
+    { "Name": "Transportation", "Confidence": 99.37098693847656 }
   ]
 }
