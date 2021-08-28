@@ -2,7 +2,8 @@ from jsonUtils import readJson, writeToJson
 import json
 
 
-def removeUnessecceryInfoFromJson():
+def removeUnessecceryInfoFromJson(awsResponseDict: dict):
+    writeToJson(awsResponseDict)
     jsonDictToModify = loadDataIntoDictFromFile()
     modifiedJsonResponse = deleteUnnecceryLabels(jsonDictToModify)
     writeToJson(modifiedJsonResponse)

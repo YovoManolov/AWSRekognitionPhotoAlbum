@@ -1,6 +1,5 @@
 from jsonUtils import writeToJson
 from jsonModificator import removeUnessecceryInfoFromJson
-from aws_constants import awsAccessKeyId, awsSecretAccessKey
 import boto3
 
 # Download image from s3
@@ -13,10 +12,9 @@ import boto3
 # =======================================================================================
 
 client = boto3.client('rekognition')
-awsResponse = client.detect_labels(
+awsResponseDict = client.detect_labels(
     Image={'S3Object': {'Bucket': 'aws-rekognition-photo-album',
                         'Name': 'resources/cars/1.png'}},
     MinConfidence=80, MaxLabels=4)
 
-writeToJson(awsResponse)
-removeUnessecceryInfoFromJson()
+removeUnessecceryInfoFromJson(awsResponseDict)

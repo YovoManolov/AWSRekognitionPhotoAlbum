@@ -24,7 +24,7 @@ class Book(db.Document):
         return{
             "book_id": self.book_id,
             "name": self.name,
-            "book_id": self.author
+            "author": self.author
         }
 
 

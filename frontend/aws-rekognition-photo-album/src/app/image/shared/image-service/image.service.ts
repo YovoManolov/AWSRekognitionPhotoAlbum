@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ImageAwsService } from './aws/image-aws.service';
 
 @Injectable({
   providedIn: 'root'
@@ -6,9 +7,12 @@ import { Injectable } from '@angular/core';
 export class ImageService {
 
   visibleImages: any[] = [];
-  constructor() { }
+  constructor(
+    private imageAwsService: ImageAwsService
+  ) { }
   getImages() {
     return this.visibleImages = IMAGES.slice(0);
+    //this.imageAwsService.getAwsImages()
   }
 
   getImagesByCategory(category: string) {
@@ -144,3 +148,4 @@ const IMAGES = [
     "url": "assets/resources/watches/5.png"
   }
 ]
+
