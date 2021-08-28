@@ -132,3 +132,4 @@ backend/FlaskRestApi/sample/api_constants.py
 backend/FlaskRestApi/sample/mongo_constants.py
 backend/DOCS/new_user_credentials.txt
 backend/FlaskRestApi/labels_rest_api/callToAws/aws_constants.py
+frontend/aws-rekognition-photo-album/src/environments/environment.ts
