@@ -14,9 +14,8 @@ export class GalleryComponent implements OnInit {
   labelToFilter: string = "";
 
   constructor(
-    private imageService: ImageService,
-    private route: ActivatedRoute) {
-  }
+    private route: ActivatedRoute,
+    private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -26,7 +25,8 @@ export class GalleryComponent implements OnInit {
 
     switch (this.labelToFilter) {
       case "all":
-        this.visibleImages = this.imageService.getImages();
+        //this.visibleImages = this.imageService.getImages();
+        this.imageService.getImages();
         break;
       case "cars":
         this.visibleImages = this.imageService.getImagesByCategory(this.labelToFilter);
