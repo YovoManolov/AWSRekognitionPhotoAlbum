@@ -1,3 +1,4 @@
+import boto3
 from flask import jsonify, request
 from flask.helpers import make_response
 from flask_mongoengine import MongoEngine, json
@@ -12,6 +13,7 @@ app.config["MONGODB_HOST"] = DB_URI
 
 db = MongoEngine()
 db.init_app(app)
+
 
 '''
 { "Image": "https://aws-rekognition-photo-album.s3.eu-central-1.amazonaws.com/resources/cars/1.png"
@@ -62,8 +64,14 @@ def api_images():
             images.append(image)
         return make_response(jsonify(images), 200)
     elif request.method == "POST":
+        # 1. Upload image to AWS s3 bucket
+        # 2. Get image URL from s3
+        # 3. Make request to AWS Rekognition to get the image labels
+        #getLabels("aws-rekognition-photo-album", "resources/cars/1.png")
+        # 4. Collect the data and write it to MongoDB
+
         content = request.json
-        image = Image(image_id=content['image_id'],
+        image = Image(image=content['image'],
                       name=content['name'], author=content['author'])
         image.save()
         return make_response("", 201)
