@@ -1,27 +1,23 @@
-from jsonUtils import readJson, writeToJson
-import json
+from jsonUtils import loadDataIntoDictFromFile, readJson, writeToJson
 
 
-def removeUnessecceryInfoFromJson(awsResponseDict: dict):
-    writeToJson(awsResponseDict)
-    jsonDictToModify = loadDataIntoDictFromFile()
-    modifiedJsonResponse = deleteUnnecceryLabels(jsonDictToModify)
-    writeToJson(modifiedJsonResponse)
-    readJson()
+def extractOnlyLabelsFromAwsResponse(awsResponseDict: dict):
+    return deleteUnnecceryLabels(awsResponseDict)
 
 
-def loadDataIntoDictFromFile():
-    read_file = open("backend/resources/json/labels_response.json", "r")
-    jsonDictToModify = json.load(read_file)
-    read_file.close()
-    return jsonDictToModify
-
+# def removeUnessecceryInfoFromJson(awsResponseDict: dict):
+#     writeToJson(awsResponseDict)
+#     jsonDictToModify = loadDataIntoDictFromFile()
+#     modifiedJsonResponse = deleteUnnecceryLabels(jsonDictToModify)
+#     writeToJson(modifiedJsonResponse)
+#     readJson()
 
 def deleteUnnecceryLabels(jsonDictToModify: dict):
     jsonDictToModify = deleteElement(jsonDictToModify, "LabelModelVersion")
     jsonDictToModify = deleteElement(jsonDictToModify, "ResponseMetadata")
     jsonDictToModify = deleteElement(jsonDictToModify, "Instances")
     jsonDictToModify = deleteElement(jsonDictToModify, "Parents")
+    print(jsonDictToModify)
     return jsonDictToModify
 
 
