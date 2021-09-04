@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ImageAwsService } from './aws/image-aws.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +6,8 @@ import { ImageAwsService } from './aws/image-aws.service';
 export class ImageService {
 
   visibleImages: any[] = [];
-  constructor(
-    private imageAwsService: ImageAwsService
-  ) { }
+  constructor() { }
+
   getImages() {
     return this.visibleImages = IMAGES.slice(0);
     //this.imageAwsService.getAwsImages()

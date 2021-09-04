@@ -25,8 +25,6 @@ s3_client = boto3.client('s3')
 
 # extractOnlyLabelsFromAwsResponse(awsResponseDict)
 
-getLabels("aws-rekognition-photo-album", "resources/cars/1.png")
-
 
 def getLabels(bucketName: str, resourceName: str):
     awsResponseDict = rekognition_client.detect_labels(

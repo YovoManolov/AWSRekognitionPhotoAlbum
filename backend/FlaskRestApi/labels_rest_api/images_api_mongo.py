@@ -66,11 +66,12 @@ def api_images():
     elif request.method == "POST":
         # 1. Upload image to AWS s3 bucket
         # 2. Get image URL from s3
+
         # 3. Make request to AWS Rekognition to get the image labels
         #getLabels("aws-rekognition-photo-album", "resources/cars/1.png")
         # 4. Collect the data and write it to MongoDB
 
-        content = request.json
+        con tent = request.json
         image = Image(image=content['image'],
                       name=content['name'], author=content['author'])
         image.save()

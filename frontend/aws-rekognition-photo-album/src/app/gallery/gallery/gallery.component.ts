@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ImageService } from 'src/app/image/shared/image-service/image.service';
+import { ImageService } from 'src/app/image/image-service/image.service';
 
 @Component({
   selector: 'app-gallery',
@@ -25,8 +25,8 @@ export class GalleryComponent implements OnInit {
 
     switch (this.labelToFilter) {
       case "all":
-        //this.visibleImages = this.imageService.getImages();
-        this.imageService.getImages();
+        this.visibleImages = this.imageService.getImages();
+        //this.imageService.getImages();
         break;
       case "cars":
         this.visibleImages = this.imageService.getImagesByCategory(this.labelToFilter);

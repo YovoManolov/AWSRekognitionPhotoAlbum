@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ImageFilterPipe } from './image/shared/image-filter-pipe/image-filter.pipe';
+import { ImageFilterPipe } from './image/image-filter-pipe/image-filter.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { GalleryComponent } from './gallery/gallery/gallery.component';
-import { ImageService } from './image/shared/image-service/image.service';
+import { ImageService } from './image/image-service/image.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
+import { UploadImageComponent } from './image/upload-image/upload-image.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     GalleryComponent,
-    ImageFilterPipe
+    ImageFilterPipe,
+    UploadImageComponent
   ],
   imports: [
     BrowserModule,
