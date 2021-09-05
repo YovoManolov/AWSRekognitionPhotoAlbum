@@ -1,5 +1,6 @@
 {
     "python.analysis.extraPaths": [
-        "./backend/FlaskRestApi/labels_rest_api/callToAws"
+        "./backend/FlaskRestApi/labels_rest_api/callToAws",
+        "./backend/FlaskRestApi/labels_rest_api/callToAws/utils"
     ]
 }
