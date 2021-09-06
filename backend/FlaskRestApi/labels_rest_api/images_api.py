@@ -4,6 +4,7 @@ from flask_mongoengine import MongoEngine
 from flask import Flask
 from mongoengine.fields import EmbeddedDocumentField
 from aws_constants import mongodb_passowrd, database_name
+from imageOperations import getAllImageDocuments, getAllImages
 
 app = Flask(__name__)
 
@@ -54,6 +55,14 @@ def flask_mongodb_atlas():
     return "flask mongodb atlas!"
 
 
+@app.route('/awsRecognitionPhotoAlbum/populateImages', methods=['POST'])
+def populate_images():
+    for newMongoImageJson in getAllImageDocuments():
+        newMongoImageDoc = Image(image=newMongoImageJson['Image'],
+                                 labels=newMongoImageJson['Labels'])
+        newMongoImageDoc.save()
+
+
 @app.route('/api/images', methods=['GET', 'POST'])
 def api_images():
     if request.method == "GET":
@@ -63,10 +72,11 @@ def api_images():
         return make_response(jsonify(images), 200)
     elif request.method == "POST":
         # 1. Upload image to AWS s3 bucket
+
         # 2. Get image URL from s3
 
         # 3. Make request to AWS Rekognition to get the image labels
-        #getLabels("aws-rekognition-photo-album", "resources/cars/1.png")
+        # getLabels("aws-rekognition-photo-album", "resources/cars/1.png")
         # 4. Collect the data and write it to MongoDB
 
         content = request.json
@@ -79,20 +89,32 @@ def api_images():
 @app.route('/api/images/<_id>', methods=['GET', 'PUT', 'DELETE'])
 def api_each_image(_id):
     if request.method == "GET":
-        image_obj = Image.objects(_id=_id).first()
+        image_obj = getImageById(_id)
         if image_obj:
             return make_response(jsonify(image_obj), 200)
         else:
             return make_response("", 404)
     elif request.method == "PUT":
         content = request.json
-        image_obj = Image.objects(_id=_id).first()
-        image_obj.update(Image=content['Image'], Labels=content['Labels'])
-        return make_response("", 204)
+        updateImage(_id, content)
     elif request.method == "DELETE":
-        image_obj = Image.objects(_id=_id).first()
-        image_obj.delete()
-        return make_response("", 204)
+        deleteImage(_id)
+
+
+def getImageById(_id: str):
+    return Image.objects(_id=_id).first()
+
+
+def updateImage(_id: str, content: any):
+    image_obj = Image.objects(_id=_id).first()
+    image_obj.update(Image=content['Image'], Labels=content['Labels'])
+    return make_response("", 204)
+
+
+def deleteImage(_id: str):
+    image_obj = Image.objects(_id=_id).first()
+    image_obj.delete()
+    return make_response("", 204)
 
 
 if __name__ == "__main__":

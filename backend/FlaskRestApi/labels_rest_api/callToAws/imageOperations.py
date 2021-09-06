@@ -8,13 +8,48 @@ rekognition_client = boto3.client('rekognition')
 s3_client = boto3.client('s3')
 s3_resource = boto3.resource('s3')
 bucket_name = 'aws-rekognition-photo-album'
+my_bucket = s3_resource.Bucket(bucket_name)
+
+# https://aws-rekognition-photo-album.s3.eu-central-1.amazonaws.com/resources/cars/1.png
+#getLabels("aws-rekognition-photo-album", "resources/cars/1.png")
+# ================================================================
+# {"Image": "https://aws-rekognition-photo-album.s3.eu-central-1.amazonaws.com/resources/cars/1.png"
+#  "Labels": [
+#      {"Name": "Sports Car", "Confidence": 99.37098693847656},
+#      {"Name": "Car", "Confidence": 99.37098693847656},
+#      {"Name": "Vehicle", "Confidence": 99.37098693847656},
+#      {"Name": "Transportation", "Confidence": 99.37098693847656}
+#   ]
+#  }
+# ================================================================
 
 
-def getLabels(bucketName: str, resourceName: str):
+def getAllImageDocuments():
+    mongoImageDocuments = []
+    for object in my_bucket.objects.all():
+        url = generateUrlFromBucketObject(object)
+        singleImageDocument = generateJsonFromUrl(url, object.key)
+        mongoImageDocuments.append(singleImageDocument)
+    return mongoImageDocuments
+
+
+def generateUrlFromBucketObject(object: any):
+    params = {'Bucket': bucket_name, 'Key': object.key}
+    return s3_client.generate_presigned_url('get_object', params)
+
+
+def generateJsonFromUrl(resourceUrl: str, resourceName):
+    labels: getLabels(resourceName)
+    mongoImageDoc = {"Image": resourceUrl, "Labels": labels}
+    print(mongoImageDoc)
+    return generateJsonFromUrl
+
+
+def getLabels(resourceName: str):
     awsResponseDict = rekognition_client.detect_labels(
         Image={
             'S3Object': {
-                'Bucket': bucketName,
+                'Bucket': bucket_name,
                 'Name': resourceName
             }
         },
@@ -22,16 +57,6 @@ def getLabels(bucketName: str, resourceName: str):
         MaxLabels=4
     )
     return extractOnlyLabelsFromAwsResponse(awsResponseDict)
-
-
-def getAllImages():
-    my_bucket = s3_resource.Bucket(bucket_name)
-    imageUrls = []
-    for file in my_bucket.objects.all():
-        params = {'Bucket': bucket_name, 'Key': file.key}
-        url = s3_client.generate_presigned_url('get_object', params)
-        imageUrls.append(url)
-    return imageUrls
 
 
 def upload_file(file_name, object_name=None):
