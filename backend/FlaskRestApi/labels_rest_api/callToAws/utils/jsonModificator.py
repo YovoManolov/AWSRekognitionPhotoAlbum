@@ -7,7 +7,6 @@ def deleteUnnecceryLabels(jsonDictToModify: dict):
     jsonDictToModify = deleteElement(jsonDictToModify, "ResponseMetadata")
     jsonDictToModify = deleteElement(jsonDictToModify, "Instances")
     jsonDictToModify = deleteElement(jsonDictToModify, "Parents")
-    print(jsonDictToModify)
     return jsonDictToModify
 
 

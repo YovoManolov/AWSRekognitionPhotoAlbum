@@ -1,8 +1,10 @@
 import logging
 from botocore.exceptions import ClientError
-from jsonModificator import extractOnlyLabelsFromAwsResponse
 import boto3
 import os
+
+from callToAws.utils.jsonModificator import extractOnlyLabelsFromAwsResponse
+from callToAws.utils.jsonUtils import writeToJson
 
 rekognition_client = boto3.client('rekognition')
 s3_client = boto3.client('s3')
@@ -30,23 +32,23 @@ def getAllImageDocuments():
         url = generateUrlFromBucketObject(object)
         singleImageDocument = generateJsonFromUrl(url, object.key)
         mongoImageDocuments.append(singleImageDocument)
+        writeToJson(mongoImageDocuments)
     return mongoImageDocuments
 
 
-def generateUrlFromBucketObject(object: any):
+async def generateUrlFromBucketObject(object: any):
     params = {'Bucket': bucket_name, 'Key': object.key}
-    return s3_client.generate_presigned_url('get_object', params)
+    return await s3_client.generate_presigned_url('get_object', params)
 
 
-def generateJsonFromUrl(resourceUrl: str, resourceName):
+async def generateJsonFromUrl(resourceUrl: str, resourceName):
     labels: getLabels(resourceName)
     mongoImageDoc = {"Image": resourceUrl, "Labels": labels}
-    print(mongoImageDoc)
-    return generateJsonFromUrl
+    return mongoImageDoc
 
 
-def getLabels(resourceName: str):
-    awsResponseDict = rekognition_client.detect_labels(
+async def getLabels(resourceName: str):
+    awsResponseDict = await rekognition_client.detect_labels(
         Image={
             'S3Object': {
                 'Bucket': bucket_name,
@@ -56,17 +58,14 @@ def getLabels(resourceName: str):
         MinConfidence=80,
         MaxLabels=4
     )
-    return extractOnlyLabelsFromAwsResponse(awsResponseDict)
+    return await extractOnlyLabelsFromAwsResponse(awsResponseDict)
 
 
-def upload_file(file_name, object_name=None):
+async def upload_file(file_name, object_name=None):
     if object_name is None:
         object_name = os.path.basename(file_name)
-
-    # Upload the file
-    s3_client = boto3.client('s3')
     try:
-        s3_client.upload_file(file_name, bucket_name, object_name)
+        await s3_client.upload_file(file_name, bucket_name, object_name)
     except ClientError as e:
         logging.error(e)
         return False

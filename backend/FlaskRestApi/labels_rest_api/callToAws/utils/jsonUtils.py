@@ -11,5 +11,5 @@ def writeToJson(dictToWrite: dict):
 def readJson():
     jsonToRead = open(
         "backend/FlaskRestApi/labels_rest_api/callToAws/labels_response.json", "r")
-    print(json.load(jsonToRead))  # load json to dict
+    # print(json.load(jsonToRead))  # load json to dict
     jsonToRead.close()

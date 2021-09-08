@@ -1,8 +1,0 @@
-{
-  "Labels": [
-    { "Name": "Sports Car", "Confidence": 99.37098693847656 },
-    { "Name": "Car", "Confidence": 99.37098693847656 },
-    { "Name": "Vehicle", "Confidence": 99.37098693847656 },
-    { "Name": "Transportation", "Confidence": 99.37098693847656 }
-  ]
-}

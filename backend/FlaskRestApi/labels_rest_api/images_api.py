@@ -3,8 +3,8 @@ from flask.helpers import make_response
 from flask_mongoengine import MongoEngine
 from flask import Flask
 from mongoengine.fields import EmbeddedDocumentField
-from aws_constants import mongodb_passowrd, database_name
-from imageOperations import getAllImageDocuments, getAllImages
+from callToAws.imageOperations import getAllImageDocuments
+from mongo_constants import mongodb_passowrd, database_name
 
 app = Flask(__name__)
 
@@ -63,7 +63,7 @@ def populate_images():
         newMongoImageDoc.save()
 
 
-@app.route('/api/images', methods=['GET', 'POST'])
+@app.route('/awsRecognitionPhotoAlbum/images', methods=['GET', 'POST'])
 def api_images():
     if request.method == "GET":
         images = []
@@ -79,14 +79,14 @@ def api_images():
         # getLabels("aws-rekognition-photo-album", "resources/cars/1.png")
         # 4. Collect the data and write it to MongoDB
 
-        content = request.json
-        image = Image(image=content['image'],
-                      name=content['name'], author=content['author'])
-        image.save()
+        # content = request.json
+        # image = Image(image=content['Image'],
+        #               name=content['Labels'])
+        # image.save()
         return make_response("", 201)
 
 
-@app.route('/api/images/<_id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/awsRecognitionPhotoAlbum/images/<_id>', methods=['GET', 'PUT', 'DELETE'])
 def api_each_image(_id):
     if request.method == "GET":
         image_obj = getImageById(_id)
