@@ -1,0 +1,317 @@
+[
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/cars/1.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152304Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=46f063f487d7d8a2392df0381f1aef00d46c24f015a8477c6449ae7b1404e64f",
+    "Labels": [
+      { "Name": "Sports Car", "Confidence": 99.37098693847656 },
+      { "Name": "Car", "Confidence": 99.37098693847656 },
+      { "Name": "Vehicle", "Confidence": 99.37098693847656 },
+      { "Name": "Transportation", "Confidence": 99.37098693847656 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/cars/10.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152321Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=42d066dfca67b241f541c559dbc0a1d671148ce3cb3d5b52d51e7a1ff1b2da98",
+    "Labels": [
+      { "Name": "Car", "Confidence": 99.99620056152344 },
+      { "Name": "Tire", "Confidence": 99.86405181884766 },
+      { "Name": "Wheel", "Confidence": 99.85396575927734 },
+      { "Name": "Car Wheel", "Confidence": 99.60215759277344 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/cars/2.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152326Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=3249bfc8f5d3fff75ea6246cf2b3add6035c586955b684f8924e0b8813de107e",
+    "Labels": [
+      { "Name": "Car", "Confidence": 98.08451080322266 },
+      { "Name": "Transportation", "Confidence": 98.08451080322266 },
+      { "Name": "Vehicle", "Confidence": 98.08451080322266 },
+      { "Name": "Grass", "Confidence": 90.98983764648438 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/cars/3.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152336Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=5c258d2fd02ea6f3cfa6826a43d3c50600473cd6f9e91e405ee9a2fa1a3df997",
+    "Labels": [
+      { "Name": "Car", "Confidence": 93.80851745605469 },
+      { "Name": "Vehicle", "Confidence": 93.80851745605469 },
+      { "Name": "Sedan", "Confidence": 85.89598846435547 },
+      { "Name": "Wheel", "Confidence": 85.43424987792969 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/cars/4.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152337Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=84db3934ec5d0ccb9b44f1d723594a404628378b0e23289a8535aee4f1314524",
+    "Labels": [
+      { "Name": "Convertible", "Confidence": 99.3934326171875 },
+      { "Name": "Car", "Confidence": 99.3934326171875 },
+      { "Name": "Vehicle", "Confidence": 99.3934326171875 },
+      { "Name": "Transportation", "Confidence": 99.3934326171875 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/cars/5.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152337Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=b7ea4198285fc13676f488fb2655790334aa4a9273fbbf8524c687a873a8b839",
+    "Labels": [
+      { "Name": "Convertible", "Confidence": 98.80948638916016 },
+      { "Name": "Car", "Confidence": 98.80948638916016 },
+      { "Name": "Transportation", "Confidence": 98.80948638916016 },
+      { "Name": "Pickup Truck", "Confidence": 97.5255126953125 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/cars/6.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152338Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=cc403dc0ff7a4c1cda4006f8dde3e67da805c9b4a53091f84caaea292308ee39",
+    "Labels": [
+      { "Name": "Car", "Confidence": 95.39289855957031 },
+      { "Name": "Sedan", "Confidence": 95.24728393554688 },
+      { "Name": "Tire", "Confidence": 93.87763214111328 },
+      { "Name": "Wheel", "Confidence": 91.70941162109375 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/cars/7.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152338Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=cdd8a970b575e9ad5821206a8eec68734fa3597dc28934412ac8327937f00128",
+    "Labels": [
+      { "Name": "Tire", "Confidence": 97.21160125732422 },
+      { "Name": "Wheel", "Confidence": 97.03629302978516 },
+      { "Name": "Machine", "Confidence": 97.03629302978516 },
+      { "Name": "Car", "Confidence": 94.25069427490234 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/cars/8.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152338Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=10d85304c39ea8a4ab42ef6b9bde452ad78911f0bc4ebf6554a79a4941fab0ec",
+    "Labels": [
+      { "Name": "Bumper", "Confidence": 99.80760192871094 },
+      { "Name": "Vehicle", "Confidence": 99.80760192871094 },
+      { "Name": "Transportation", "Confidence": 99.80760192871094 },
+      { "Name": "Car", "Confidence": 97.9132308959961 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/cars/9.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152339Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ee5aca112b52ce5c0c07e6ca0a462bae42615628bad25a8fb1dffb5b6a01e254",
+    "Labels": [
+      { "Name": "Car", "Confidence": 99.23304748535156 },
+      { "Name": "Vehicle", "Confidence": 99.23304748535156 },
+      { "Name": "Transportation", "Confidence": 99.23304748535156 },
+      { "Name": "Pickup Truck", "Confidence": 86.7867431640625 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/faces/1.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152339Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=0825f5967af51e84446a729541f9db5fda27b48e351a31549c976d82d3dc620d",
+    "Labels": [
+      { "Name": "Face", "Confidence": 99.99920654296875 },
+      { "Name": "Person", "Confidence": 99.99920654296875 },
+      { "Name": "Human", "Confidence": 99.99920654296875 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/faces/10.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152339Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7315693f8a7a77f5eeac58b49526132f2dc84b4a95e9fb628b690485111a5358",
+    "Labels": [
+      { "Name": "Head", "Confidence": 98.35501098632812 },
+      { "Name": "Face", "Confidence": 97.82333374023438 },
+      { "Name": "Person", "Confidence": 97.82333374023438 },
+      { "Name": "Mouth", "Confidence": 88.62874603271484 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/faces/2.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152340Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ea2137bf0de80ed127eb6596669c81f791130433308bf980296a62e41d0d1488",
+    "Labels": [
+      { "Name": "Face", "Confidence": 99.98676300048828 },
+      { "Name": "Person", "Confidence": 99.98676300048828 },
+      { "Name": "Smile", "Confidence": 96.1434555053711 },
+      { "Name": "Female", "Confidence": 95.36763000488281 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/faces/3.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152340Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=3a2cea362e2d37531b3dcadd65d8c7bf798cb0cb7679adc0385b4622da8fbe0e",
+    "Labels": [
+      { "Name": "Face", "Confidence": 99.51548767089844 },
+      { "Name": "Person", "Confidence": 99.51548767089844 },
+      { "Name": "Human", "Confidence": 99.51548767089844 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/faces/4.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152340Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=904dfca0826e08b1410f67a4e752da6fbd5baabc239a19bb36ddaf57b547f95b",
+    "Labels": [
+      { "Name": "Face", "Confidence": 99.99019622802734 },
+      { "Name": "Person", "Confidence": 99.99019622802734 },
+      { "Name": "Human", "Confidence": 99.99019622802734 },
+      { "Name": "Female", "Confidence": 85.5682144165039 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/faces/5.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152341Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=b352a8c8613115f4a89117b9eb4acc4eda19daa4a478aecd1601445b46cbd151",
+    "Labels": [
+      { "Name": "Face", "Confidence": 99.97733306884766 },
+      { "Name": "Person", "Confidence": 99.97733306884766 },
+      { "Name": "Human", "Confidence": 99.97733306884766 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/faces/6.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152341Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=418f7e532a9d654fef08ea3379b7438d3033cc009cb6a9c3f02075b94385024e",
+    "Labels": [
+      { "Name": "Person", "Confidence": 99.04566955566406 },
+      { "Name": "Human", "Confidence": 99.04566955566406 },
+      { "Name": "Face", "Confidence": 99.0407943725586 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/faces/7.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152341Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=5ee8220a4e196ae56b9f9d2af1b185722a6a9f9bb19ab37149feb8a6c206a922",
+    "Labels": [
+      { "Name": "Face", "Confidence": 99.72421264648438 },
+      { "Name": "Person", "Confidence": 99.72421264648438 },
+      { "Name": "Smoking", "Confidence": 90.99165344238281 },
+      { "Name": "Smoke", "Confidence": 90.99165344238281 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/faces/8.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152342Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=1ec31d89bccc3e0cbc7efa933b92c212234dd4defe9e6b0f16f2f920ae0ae584",
+    "Labels": [
+      { "Name": "Face", "Confidence": 99.99742889404297 },
+      { "Name": "Person", "Confidence": 99.99742889404297 },
+      { "Name": "Head", "Confidence": 97.72421264648438 },
+      { "Name": "Freckle", "Confidence": 92.52143859863281 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/faces/9.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152342Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=e98d9d1584eb19c1ec093813e594ac435b3ff176c58719c636e5a272cda7bb02",
+    "Labels": [
+      { "Name": "Face", "Confidence": 99.9970703125 },
+      { "Name": "Person", "Confidence": 99.9970703125 },
+      { "Name": "Portrait", "Confidence": 93.11759185791016 },
+      { "Name": "Female", "Confidence": 89.07459259033203 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/mountain/1.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152342Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=2c25b49ce2c7b49416bc2488b10e49d324a008180a375df1f1e34b73420ae0c3",
+    "Labels": [
+      { "Name": "Slope", "Confidence": 99.96124267578125 },
+      { "Name": "Nature", "Confidence": 99.44062042236328 },
+      { "Name": "Outdoors", "Confidence": 99.37982940673828 },
+      { "Name": "Wilderness", "Confidence": 99.19929504394531 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/mountain/10.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152343Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=79d7c232cca027e213e6e15b24af39c6b2f7ff4726515669192fcc4105ec1eb0",
+    "Labels": [
+      { "Name": "Nature", "Confidence": 99.79704284667969 },
+      { "Name": "Outdoors", "Confidence": 99.51698303222656 },
+      { "Name": "Scenery", "Confidence": 98.412109375 },
+      { "Name": "Countryside", "Confidence": 95.622802734375 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/mountain/2.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152343Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=c5c6b7d2f68d72e005b35d7e67db3cf741f5664f788c12bf943d914a93965168",
+    "Labels": [
+      { "Name": "Slope", "Confidence": 99.96124267578125 },
+      { "Name": "Nature", "Confidence": 99.44062042236328 },
+      { "Name": "Outdoors", "Confidence": 99.37982940673828 },
+      { "Name": "Wilderness", "Confidence": 99.19929504394531 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/mountain/3.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152343Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=2f8e7240c1d53f3e110c1b30f533b2534857be1a4f795e3adf20c7fd30332bb9",
+    "Labels": [
+      { "Name": "Nature", "Confidence": 99.7085189819336 },
+      { "Name": "Outdoors", "Confidence": 98.78736114501953 },
+      { "Name": "Cliff", "Confidence": 95.9053955078125 },
+      { "Name": "Slope", "Confidence": 92.72441101074219 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/mountain/4.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152344Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=d8251dff6cc0949283d7600e19847c9debd9cce7dd85600af2666a9d56c19181",
+    "Labels": [
+      { "Name": "Land", "Confidence": 99.9635009765625 },
+      { "Name": "Shoreline", "Confidence": 99.80128479003906 },
+      { "Name": "Water", "Confidence": 99.80128479003906 },
+      { "Name": "Sea", "Confidence": 99.7623291015625 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/mountain/5.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152344Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=f7c3b1cb315c01ccb50d62d6a3a03bbc6fd59b1b8939515d75578f727dda814f",
+    "Labels": [
+      { "Name": "Nature", "Confidence": 99.75865936279297 },
+      { "Name": "Outdoors", "Confidence": 99.51768493652344 },
+      { "Name": "Mountain", "Confidence": 99.29484558105469 },
+      { "Name": "Panoramic", "Confidence": 98.92292785644531 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/mountain/6.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152344Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=d9f901ee8f762e0d93758eb541f24f9dd1dc9f0c409fcecdbfb455da7d05b2ee",
+    "Labels": [
+      { "Name": "Nature", "Confidence": 99.56155395507812 },
+      { "Name": "Outdoors", "Confidence": 99.43897247314453 },
+      { "Name": "Soil", "Confidence": 99.43136596679688 },
+      { "Name": "Sand", "Confidence": 98.26038360595703 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/mountain/7.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152345Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=98884d590b097e0beca5e93124058d2677e52eb92e6d1e357083a1a1a0874d75",
+    "Labels": [
+      { "Name": "Panoramic", "Confidence": 99.73527526855469 },
+      { "Name": "Nature", "Confidence": 99.73527526855469 },
+      { "Name": "Outdoors", "Confidence": 99.73527526855469 },
+      { "Name": "Scenery", "Confidence": 99.73527526855469 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/mountain/8.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152345Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=38d62d873caffa811a16c2b97f6b03c44b07be9a3c0f2d6250b841e9abb118f4",
+    "Labels": [
+      { "Name": "Panoramic", "Confidence": 99.67898559570312 },
+      { "Name": "Nature", "Confidence": 99.67898559570312 },
+      { "Name": "Outdoors", "Confidence": 99.67898559570312 },
+      { "Name": "Housing", "Confidence": 99.50431823730469 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/mountain/9.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152345Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9d15073732ca29b204f8650cd978d26a5b250a403eb9557bd785cf299039524f",
+    "Labels": [
+      { "Name": "Mountain Range", "Confidence": 99.98574829101562 },
+      { "Name": "Mountain", "Confidence": 99.98574829101562 },
+      { "Name": "Nature", "Confidence": 99.98574829101562 },
+      { "Name": "Peak", "Confidence": 99.9695053100586 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/watches/1.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152346Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=dd2bd17a9a3498e3af0b9d99db1f9b73fee338513025c4528a22c509b8b27b63",
+    "Labels": [
+      { "Name": "Helmet", "Confidence": 99.7218246459961 },
+      { "Name": "Clothing", "Confidence": 99.7218246459961 },
+      { "Name": "Apparel", "Confidence": 99.7218246459961 },
+      { "Name": "Wristwatch", "Confidence": 97.38371276855469 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/watches/10.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152346Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=d0c7ab493168907d38ea1646d280b7889c803bf2d048b0af9670bfa1b302d011",
+    "Labels": []
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/watches/2.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152346Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=b24badd4979a3be9d5e89f1ffce406e87b88a491e0330151829e35c6c428bad9",
+    "Labels": [{ "Name": "Wristwatch", "Confidence": 99.72698974609375 }]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/watches/3.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152347Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=fdf7285f27d7760a1c25544a302858e7392ad70d78d15f95a0ba36dfb991436e",
+    "Labels": [{ "Name": "Wristwatch", "Confidence": 98.28512573242188 }]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/watches/4.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152347Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=c081e73bcdb77aab9b19de67f09f5996524e3aa31b82c3452d1bfa92371d1a46",
+    "Labels": [{ "Name": "Wristwatch", "Confidence": 99.81124114990234 }]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/watches/5.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152347Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=f82fd2a8f84d4bc096cbbbfb8050a29973a8801a8a33cc8584aac0798df43930",
+    "Labels": [{ "Name": "Wristwatch", "Confidence": 92.78706359863281 }]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/watches/6.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152348Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=818a26d7ff782c503c481df693270be34b6985c50cde3ecbd1d5c338e83f9c13",
+    "Labels": [{ "Name": "Wristwatch", "Confidence": 99.7450180053711 }]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/watches/7.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152348Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=0fb445ca4445719eb75c3bbd9cbe5c6c99c177f6787244a5f9348ec61537562e",
+    "Labels": [
+      { "Name": "Wristwatch", "Confidence": 99.01718139648438 },
+      { "Name": "Wrist", "Confidence": 90.96704864501953 },
+      { "Name": "Hand", "Confidence": 90.96704864501953 }
+    ]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/watches/8.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152348Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=203e156118d764580845dd60811bdd631885fd9626271392eab628db2800ff03",
+    "Labels": [{ "Name": "Wristwatch", "Confidence": 99.20622253417969 }]
+  },
+  {
+    "Image": "https://aws-rekognition-photo-album.s3.amazonaws.com/resources/watches/9.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2AFZ3STLTR3FQW2P%2F20210912%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210912T152349Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7a4f7378d363b3773bab7c0e56de8b1fe63290e4f820da0f9b6475e33f24b573",
+    "Labels": [{ "Name": "Wristwatch", "Confidence": 99.84937286376953 }]
+  }
+]

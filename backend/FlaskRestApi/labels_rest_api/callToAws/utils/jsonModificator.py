@@ -1,8 +1,4 @@
-def extractOnlyLabelsFromAwsResponse(awsResponseDict: dict):
-    return deleteUnnecceryLabels(awsResponseDict)
-
-
-def deleteUnnecceryLabels(jsonDictToModify: dict):
+def extractOnlyLabelsFromAwsResponse(jsonDictToModify: dict):
     jsonDictToModify = deleteElement(jsonDictToModify, "LabelModelVersion")
     jsonDictToModify = deleteElement(jsonDictToModify, "ResponseMetadata")
     jsonDictToModify = deleteElement(jsonDictToModify, "Instances")

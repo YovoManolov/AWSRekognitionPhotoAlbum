@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageService } from 'src/app/image/image-service/image.service';
+import { Image } from 'src/app/models/image/image.module';
 
 @Component({
   selector: 'app-gallery',
@@ -11,6 +12,7 @@ export class GalleryComponent implements OnInit {
   title = 'Recent Photos';
   @Input() filterBy: string = 'all';
   visibleImages: any[] = [];
+  images: Array<Image> = [];
   labelToFilter: string = "";
 
   constructor(
@@ -25,8 +27,13 @@ export class GalleryComponent implements OnInit {
 
     switch (this.labelToFilter) {
       case "all":
-        this.visibleImages = this.imageService.getImages();
-        //this.imageService.getImages();
+        this.imageService.getAll().subscribe((allImages: Image[]) => {
+          this.images = allImages
+        },
+          error => {
+            console.log(error);
+          });
+        //this.loadImages();
         break;
       case "cars":
         this.visibleImages = this.imageService.getImagesByCategory(this.labelToFilter);
@@ -41,5 +48,20 @@ export class GalleryComponent implements OnInit {
         this.visibleImages = this.imageService.getImagesByCategory(this.labelToFilter);
         break;
     }
+  }
+
+  loadImages() {
+
+    this.landmarkService.getAll().subscribe((allLandmarks: Landmark[]) => {
+
+      console.log(allLandmarks);
+      this.landmarks = allLandmarks;
+
+      this.landmarks.forEach(landmark => {
+        this.allPlaces.push(landmark);
+      });
+
+    });
+
   }
 }

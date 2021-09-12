@@ -1,4 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+const baseUrl = 'http://localhost:8000/awsRecognitionPhotoAlbum/images';
 
 @Injectable({
   providedIn: 'root'
@@ -6,21 +10,41 @@ import { Injectable } from '@angular/core';
 export class ImageService {
 
   visibleImages: any[] = [];
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getImages() {
-    return this.visibleImages = IMAGES.slice(0);
-    //this.imageAwsService.getAwsImages()
+  // create(data) {
+  //   return this.http.post(`${baseUrl}/create`, data);
+  // }
+
+  getAll(): Observable<any> {
+    return this.http.get(`${baseUrl}/images`);
   }
+
+  // getLandmarkById(_id: string): Observable<Image> {
+  //   const url = `${baseUrl}/getOneById/${_id}`;
+  //   return this.http.get<Image>(url);
+  // }
+
+  update(id: string, data: any) {
+    return this.http.put(`${baseUrl}/update/`, data);
+  }
+
+  delete(id: string) {
+    return this.http.delete(`${baseUrl}/${id}`);
+  }
+
+  // getImages() {
+  //   return this.visibleImages = IMAGES.slice(0);
+  // }
 
   getImagesByCategory(category: string) {
-    this.visibleImages = IMAGES.slice(0).filter(image => image.category == category);
-    return this.visibleImages
+    //   this.visibleImages = IMAGES.slice(0).filter(image => image.category == category);
+    //   return this.visibleImages
   }
 
-  getImagesById(id: number) {
-    return this.visibleImages = IMAGES.slice(0).filter(image => image.id == id);
-  }
+  // getImagesById(id: number) {
+  //   return this.visibleImages = IMAGES.slice(0).filter(image => image.id == id);
+  // }
 
 }
 

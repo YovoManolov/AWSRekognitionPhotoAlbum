@@ -2,8 +2,8 @@ from flask import jsonify, request
 from flask.helpers import make_response
 from flask_mongoengine import MongoEngine
 from flask import Flask
-from mongoengine.fields import EmbeddedDocumentField
-from callToAws.imageOperations import getAllImageDocuments
+from mongoengine.fields import EmbeddedDocumentField, ListField
+from callToAws.imageOperations import getAllImageDocuments, getAllImageDocumentsFromFile
 from mongo_constants import mongodb_passowrd, database_name
 
 app = Flask(__name__)
@@ -26,27 +26,27 @@ db.init_app(app)
 '''
 
 
-class Label(db.EmbeddedDocument):
-    name = db.StringField()
-    confidence = db.FloatField()
+class Labels(db.EmbeddedDocument):
+    Name = db.StringField()
+    Confidence = db.FloatField()
 
     def toJson(self):
         return{
-            "Name": self.name,
-            "Confidence": self.confidence,
+            "Name": self.Name,
+            "Confidence": self.Confidence,
         }
 
 
 class Image(db.Document):
     _id = db.StringField()
-    image = db.StringField()
-    labels = db.ListField(EmbeddedDocumentField(Label))
+    Image = db.StringField()
+    Labels = ListField(EmbeddedDocumentField(Labels))
 
     def toJson(self):
         return{
             "_id": self._id,
-            "Image": self.image,
-            "Labels": self.labels
+            "Image": self.Image,
+            "Labels": Labels.toJson(self.Labels)
         }
 
 
@@ -57,9 +57,10 @@ def flask_mongodb_atlas():
 
 @app.route('/awsRecognitionPhotoAlbum/populateImages', methods=['POST'])
 def populate_images():
-    for newMongoImageJson in getAllImageDocuments():
-        newMongoImageDoc = Image(image=newMongoImageJson['Image'],
-                                 labels=newMongoImageJson['Labels'])
+    # for newMongoImageJson in getAllImageDocuments():
+    for newMongoImageJson in getAllImageDocumentsFromFile():
+        newMongoImageDoc = Image(Image=newMongoImageJson['Image'],
+                                 Labels=newMongoImageJson['Labels'])
         newMongoImageDoc.save()
 
 

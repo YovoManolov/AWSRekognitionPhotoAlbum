@@ -1,3 +1,4 @@
+import json
 import logging
 from botocore.exceptions import ClientError
 import boto3
@@ -10,10 +11,9 @@ rekognition_client = boto3.client('rekognition')
 s3_client = boto3.client('s3')
 s3_resource = boto3.resource('s3')
 bucket_name = 'aws-rekognition-photo-album'
-my_bucket = s3_resource.Bucket(bucket_name)
 
 # https://aws-rekognition-photo-album.s3.eu-central-1.amazonaws.com/resources/cars/1.png
-#getLabels("aws-rekognition-photo-album", "resources/cars/1.png")
+# getLabels("aws-rekognition-photo-album", "resources/cars/1.png")
 # ================================================================
 # {"Image": "https://aws-rekognition-photo-album.s3.eu-central-1.amazonaws.com/resources/cars/1.png"
 #  "Labels": [
@@ -27,28 +27,38 @@ my_bucket = s3_resource.Bucket(bucket_name)
 
 
 def getAllImageDocuments():
+    s3_resource = boto3.resource('s3')
+    my_bucket = s3_resource.Bucket(bucket_name)
     mongoImageDocuments = []
     for object in my_bucket.objects.all():
         url = generateUrlFromBucketObject(object)
-        singleImageDocument = generateJsonFromUrl(url, object.key)
-        mongoImageDocuments.append(singleImageDocument)
-        writeToJson(mongoImageDocuments)
+        jsonDict = generateJsonFromUrl(url, object.key)
+        mongoImageDocuments.append(jsonDict)
     return mongoImageDocuments
 
 
-async def generateUrlFromBucketObject(object: any):
+def getAllImageDocumentsFromFile():  # For debug purposes
+    with open("backend/FlaskRestApi/labels_rest_api/callToAws/labels_response.json") as f:
+        data = json.loads(f.read())
+        mongoImageDocument = []
+        for item in data:
+            mongoImageDocument.append(item)
+        return mongoImageDocument
+
+
+def generateUrlFromBucketObject(object: any):
     params = {'Bucket': bucket_name, 'Key': object.key}
-    return await s3_client.generate_presigned_url('get_object', params)
+    return s3_client.generate_presigned_url('get_object', params)
 
 
-async def generateJsonFromUrl(resourceUrl: str, resourceName):
-    labels: getLabels(resourceName)
-    mongoImageDoc = {"Image": resourceUrl, "Labels": labels}
+def generateJsonFromUrl(resourceUrl: str, resourceName):
+    mongoImageDoc = {"Image": resourceUrl,
+                     "Labels": getLabels(resourceName).get("Labels")}
     return mongoImageDoc
 
 
-async def getLabels(resourceName: str):
-    awsResponseDict = await rekognition_client.detect_labels(
+def getLabels(resourceName: str):
+    awsResponseDict = rekognition_client.detect_labels(
         Image={
             'S3Object': {
                 'Bucket': bucket_name,
@@ -58,14 +68,14 @@ async def getLabels(resourceName: str):
         MinConfidence=80,
         MaxLabels=4
     )
-    return await extractOnlyLabelsFromAwsResponse(awsResponseDict)
+    return extractOnlyLabelsFromAwsResponse(awsResponseDict)
 
 
-async def upload_file(file_name, object_name=None):
+def upload_file(file_name, object_name=None):
     if object_name is None:
         object_name = os.path.basename(file_name)
     try:
-        await s3_client.upload_file(file_name, bucket_name, object_name)
+        s3_client.upload_file(file_name, bucket_name, object_name)
     except ClientError as e:
         logging.error(e)
         return False
