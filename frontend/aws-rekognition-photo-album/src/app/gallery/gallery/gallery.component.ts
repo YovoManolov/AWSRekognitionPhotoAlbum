@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageService } from 'src/app/image/image-service/image.service';
 import { Image } from 'src/app/models/image/image.module';
+import { Label } from 'src/app/models/labels/label.module';
 
 @Component({
   selector: 'app-gallery',
@@ -11,8 +12,8 @@ import { Image } from 'src/app/models/image/image.module';
 export class GalleryComponent implements OnInit {
   title = 'Recent Photos';
   @Input() filterBy: string = 'all';
-  visibleImages: any[] = [];
-  images: Array<Image> = [];
+  #visibleImages: any[] = [];
+  visibleImages: Array<Image> = [];
   labelToFilter: string = "";
 
   constructor(
@@ -27,41 +28,69 @@ export class GalleryComponent implements OnInit {
 
     switch (this.labelToFilter) {
       case "all":
-        this.imageService.getAll().subscribe((allImages: Image[]) => {
-          this.images = allImages
-        },
-          error => {
-            console.log(error);
-          });
-        //this.loadImages();
+        this.loadImages();
         break;
       case "cars":
-        this.visibleImages = this.imageService.getImagesByCategory(this.labelToFilter);
+        this.loadCarImages();
         break;
       case "faces":
-        this.visibleImages = this.imageService.getImagesByCategory(this.labelToFilter);
+        this.loadFaceImages();
         break;
-      case "mountains":
-        this.visibleImages = this.imageService.getImagesByCategory(this.labelToFilter);
+      case "nature":
+        this.loadNatureImages();
         break;
       case "watches":
-        this.visibleImages = this.imageService.getImagesByCategory(this.labelToFilter);
+        this.loadCarImages();
         break;
     }
   }
 
   loadImages() {
-
-    this.landmarkService.getAll().subscribe((allLandmarks: Landmark[]) => {
-
-      console.log(allLandmarks);
-      this.landmarks = allLandmarks;
-
-      this.landmarks.forEach(landmark => {
-        this.allPlaces.push(landmark);
+    this.imageService.getAll().subscribe((allImages: Image[]) => {
+      this.images = allImages
+    },
+      error => {
+        console.log(error);
       });
-
-    });
-
   }
+
+  loadCarImages() {
+    this.imageService.getCarImages().subscribe((carImages: Image[]) => {
+      this.images = carImages
+    },
+      error => {
+        console.log(error);
+      });
+  }
+
+
+  loadFaceImages() {
+    this.imageService.getCarImages().subscribe((carImages: Image[]) => {
+      this.images = carImages
+    },
+      error => {
+        console.log(error);
+      });
+  }
+
+
+  loadNatureImages() {
+    this.imageService.getCarImages().subscribe((carImages: Image[]) => {
+      this.images = carImages
+    },
+      error => {
+        console.log(error);
+      });
+  }
+
+
+  loadWatchImages() {
+    this.imageService.getCarImages().subscribe((carImages: Image[]) => {
+      this.images = carImages
+    },
+      error => {
+        console.log(error);
+      });
+  }
+
 }

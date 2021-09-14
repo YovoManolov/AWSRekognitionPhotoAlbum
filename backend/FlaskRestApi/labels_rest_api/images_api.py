@@ -64,13 +64,20 @@ def populate_images():
         newMongoImageDoc.save()
 
 
-@app.route('/awsRecognitionPhotoAlbum/images', methods=['GET', 'POST'])
-def api_images():
+@app.route('/awsRecognitionPhotoAlbum/images/label/<labelToFind>', methods=['GET'])
+def api_watch_images(labelToFind):
     if request.method == "GET":
         images = []
         for image in Image.objects:
-            images.append(image)
+            if image.objects(Labels__name__contains=labelToFind):
+                images.append(image)
         return make_response(jsonify(images), 200)
+
+
+@app.route('/awsRecognitionPhotoAlbum/images', methods=['GET', 'POST'])
+def api_images():
+    if request.method == "GET":
+        return retrieveAllImages()
     elif request.method == "POST":
         # 1. Upload image to AWS s3 bucket
 
@@ -86,24 +93,33 @@ def api_images():
         # image.save()
         return make_response("", 201)
 
+# @app.route('/awsRecognitionPhotoAlbum/images/category<_id>', methods=['GET', 'PUT', 'DELETE'])
+
 
 @app.route('/awsRecognitionPhotoAlbum/images/<_id>', methods=['GET', 'PUT', 'DELETE'])
 def api_each_image(_id):
     if request.method == "GET":
-        image_obj = getImageById(_id)
-        if image_obj:
-            return make_response(jsonify(image_obj), 200)
-        else:
-            return make_response("", 404)
+        return getImageById(_id)
     elif request.method == "PUT":
         content = request.json
-        updateImage(_id, content)
+        return updateImage(_id, content)
     elif request.method == "DELETE":
-        deleteImage(_id)
+        return deleteImage(_id)
+
+
+def retrieveAllImages():
+    images = []
+    for image in Image.objects:
+        images.append(image)
+    return make_response(jsonify(images), 200)
 
 
 def getImageById(_id: str):
-    return Image.objects(_id=_id).first()
+    image_obj = Image.objects(_id=_id).first()
+    if image_obj:
+        return make_response(jsonify(image_obj), 200)
+    else:
+        return make_response("", 404)
 
 
 def updateImage(_id: str, content: any):

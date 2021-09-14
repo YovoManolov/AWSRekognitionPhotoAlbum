@@ -4,6 +4,6 @@
             target="_blank">
             <img src="{{image.url}}" class="gallery__image" />
         </a>
-        <figcaption>{{image.category}}</figcaption>
+        <figcaption *ngFor="let label of image.Labels">{{image.Labels}}</figcaption>
     </figure>
 </div>

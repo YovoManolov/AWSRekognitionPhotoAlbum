@@ -20,6 +20,22 @@ export class ImageService {
     return this.http.get(`${baseUrl}/images`);
   }
 
+  getCarImages(): Observable<any> {
+    return this.http.get(`${baseUrl}/label/car`);
+  }
+
+  getFaceImages(): Observable<any> {
+    return this.http.get(`${baseUrl}/label/face`);
+  }
+
+  getNatureImages(): Observable<any> {
+    return this.http.get(`${baseUrl}/label/nature`);
+  }
+
+  getWatchImages(): Observable<any> {
+    return this.http.get(`${baseUrl}/label/watch`);
+  }
+
   // getLandmarkById(_id: string): Observable<Image> {
   //   const url = `${baseUrl}/getOneById/${_id}`;
   //   return this.http.get<Image>(url);
