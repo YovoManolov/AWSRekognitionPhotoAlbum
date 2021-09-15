@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-const baseUrl = 'http://localhost:8000/awsRecognitionPhotoAlbum/images';
+const baseUrl = 'http://localhost:8000/awsRekognitionPhotoAlbum/images';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class ImageService {
   // }
 
   getAll(): Observable<any> {
-    return this.http.get(`${baseUrl}/images`);
+    return this.http.get(`${baseUrl}`);
   }
 
   getCarImages(): Observable<any> {

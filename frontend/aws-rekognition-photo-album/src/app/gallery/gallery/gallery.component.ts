@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageService } from 'src/app/image/image-service/image.service';
 import { Image } from 'src/app/models/image/image.module';
-import { Label } from 'src/app/models/labels/label.module';
 
 @Component({
   selector: 'app-gallery',
@@ -12,9 +11,8 @@ import { Label } from 'src/app/models/labels/label.module';
 export class GalleryComponent implements OnInit {
   title = 'Recent Photos';
   @Input() filterBy: string = 'all';
-  #visibleImages: any[] = [];
   visibleImages: Array<Image> = [];
-  labelToFilter: string = "";
+  filterParam: string = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -22,11 +20,11 @@ export class GalleryComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.labelToFilter = params['pictureLabel'];
+      this.filterParam = params['filterParam'];
     });
     this.route.queryParams.subscribe(params => console.log('queryParams', params['st']));
 
-    switch (this.labelToFilter) {
+    switch (this.filterParam) {
       case "all":
         this.loadImages();
         break;
@@ -47,7 +45,7 @@ export class GalleryComponent implements OnInit {
 
   loadImages() {
     this.imageService.getAll().subscribe((allImages: Image[]) => {
-      this.images = allImages
+      this.visibleImages = allImages
     },
       error => {
         console.log(error);
@@ -56,7 +54,7 @@ export class GalleryComponent implements OnInit {
 
   loadCarImages() {
     this.imageService.getCarImages().subscribe((carImages: Image[]) => {
-      this.images = carImages
+      this.visibleImages = carImages
     },
       error => {
         console.log(error);
@@ -66,7 +64,7 @@ export class GalleryComponent implements OnInit {
 
   loadFaceImages() {
     this.imageService.getCarImages().subscribe((carImages: Image[]) => {
-      this.images = carImages
+      this.visibleImages = carImages
     },
       error => {
         console.log(error);
@@ -76,7 +74,7 @@ export class GalleryComponent implements OnInit {
 
   loadNatureImages() {
     this.imageService.getCarImages().subscribe((carImages: Image[]) => {
-      this.images = carImages
+      this.visibleImages = carImages
     },
       error => {
         console.log(error);
@@ -86,7 +84,7 @@ export class GalleryComponent implements OnInit {
 
   loadWatchImages() {
     this.imageService.getCarImages().subscribe((carImages: Image[]) => {
-      this.images = carImages
+      this.visibleImages = carImages
     },
       error => {
         console.log(error);
