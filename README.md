@@ -35,3 +35,22 @@ DELETE /api/books/{object_book_id} -> Deletes photo (with 204 success code)
 
 - Will delete image in S3
 - Will delete image document in Mongo
+
+mongo document example:
+
+# ================================================================
+
+https://aws-rekognition-photo-album.s3.eu-central-1.amazonaws.com/resources/cars/1.png
+getLabels("aws-rekognition-photo-album", "resources/cars/1.png")
+
+{
+"Image": "https://aws-rekognition-photo-album.s3.eu-central-1.amazonaws.com/resources/cars/1.png"
+"Labels": [
+{"Name": "Sports Car", "Confidence": 99.37098693847656},
+{"Name": "Car", "Confidence": 99.37098693847656},
+{"Name": "Vehicle", "Confidence": 99.37098693847656},
+{"Name": "Transportation", "Confidence": 99.37098693847656}
+]
+}
+
+# ================================================================
