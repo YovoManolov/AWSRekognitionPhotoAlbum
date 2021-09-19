@@ -27,7 +27,6 @@ bucket_name = 'aws-rekognition-photo-album'
 
 
 def getAllImageDocuments():
-    s3_resource = boto3.resource('s3')
     my_bucket = s3_resource.Bucket(bucket_name)
     mongoImageDocuments = []
     for object in my_bucket.objects.all():
@@ -35,6 +34,12 @@ def getAllImageDocuments():
         jsonDict = generateJsonFromUrl(url, object.key)
         mongoImageDocuments.append(jsonDict)
     return mongoImageDocuments
+
+
+def getImageDocumentByResourceName(resourceKey: str):
+    object = s3_resource.Object(bucket_name, resourceKey)
+    url = generateUrlFromBucketObject(object)
+    return generateJsonFromUrl(url, object.key)
 
 
 def getAllImageDocumentsFromFile():  # For debug purposes
@@ -72,8 +77,6 @@ def getLabels(resourceName: str):
 
 
 def upload_file(file_name, object_name=None):
-    if object_name is None:
-        object_name = os.path.basename(file_name)
     try:
         s3_client.upload_file(file_name, bucket_name, object_name)
     except ClientError as e:

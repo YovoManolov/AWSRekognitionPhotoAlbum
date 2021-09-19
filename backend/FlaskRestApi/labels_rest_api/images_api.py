@@ -1,9 +1,10 @@
+import os
 from flask import jsonify, request
 from flask.helpers import make_response
 from flask_mongoengine import MongoEngine
 from flask import Flask
 from mongoengine.fields import EmbeddedDocumentField, ListField
-from callToAws.imageOperations import getAllImageDocuments, getAllImageDocumentsFromFile
+from callToAws.imageOperations import getAllImageDocuments, getAllImageDocumentsFromFile, upload_file, getImageDocumentByResourceName
 from mongo_constants import mongodb_passowrd, database_name
 #from flask_cors import CORS
 
@@ -45,14 +46,13 @@ class Image(db.Document):
 def flask_mongodb_atlas():
     return "flask mongodb atlas!"
 
+# for newMongoImageJson in getAllImageDocumentsFromFile():
 
-# @app.route('/awsRekognitionPhotoAlbum/populateImages', methods=['POST'])
-# def populate_images():
-#     # for newMongoImageJson in getAllImageDocuments():
-#     for newMongoImageJson in getAllImageDocumentsFromFile():
-#         newMongoImageDoc = Image(Image=newMongoImageJson['Image'],
-#                                  Labels=newMongoImageJson['Labels'])
-#         newMongoImageDoc.save()
+
+@app.route('/awsRekognitionPhotoAlbum/populateImages', methods=['POST'])
+def populate_images():
+    for newMongoImageJson in getAllImageDocuments():
+        createImage(newMongoImageJson)
 
 
 @app.route('/awsRekognitionPhotoAlbum/images', methods=['GET', 'POST'])
@@ -60,19 +60,14 @@ def api_images():
     if request.method == "GET":
         return retrieveAllImages()
     elif request.method == "POST":
-        # 1. Upload image to AWS s3 bucket
-
-        # 2. Get image URL from s3
-
-        # 3. Make request to AWS Rekognition to get the image labels
-        # getLabels("aws-rekognition-photo-album", "resources/cars/1.png")
-        # 4. Collect the data and write it to MongoDB
-
-        # content = request.json
-        # image = Image(image=content['Image'],
-        #               name=content['Labels'])
-        # image.save()
-        return make_response("", 201)
+        filePath = request.form.get("filePath")
+        object_name = 'resources/' + os.path.basename(filePath)
+        if upload_file(filePath, object_name):
+            newMongoImageJson = getImageDocumentByResourceName(object_name)
+            createImage(newMongoImageJson)
+            return make_response("", 204)
+        else:
+            return make_response("", 500)
 
 
 @app.route('/awsRekognitionPhotoAlbum/images/label/<labelToFind>', methods=['GET'])
@@ -83,9 +78,6 @@ def api_watch_images(labelToFind):
             if image.objects(Labels__name__contains=labelToFind):
                 images.append(image)
         return make_response(jsonify(images), 200)
-
-
-# @app.route('/awsRekognitionPhotoAlbum/images/category<_id>', methods=['GET', 'PUT', 'DELETE'])
 
 
 # @app.route('/awsRekognitionPhotoAlbum/images/<_id>', methods=['GET', 'PUT', 'DELETE'])
@@ -104,6 +96,12 @@ def retrieveAllImages():
     for image in Image.objects:
         images.append(image)
     return make_response(jsonify(images), 200)
+
+
+def createImage(newMongoImageJson: dict):
+    newMongoImageDoc = Image(Image=newMongoImageJson['Image'],
+                             Labels=newMongoImageJson['Labels'])
+    newMongoImageDoc.save()
 
 
 def getImageById(_id: str):
