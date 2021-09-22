@@ -38,8 +38,7 @@ def getAllImageDocumentsFromFile():  # For debug purposes
 
 
 def generateUrlFromBucketObject(object: any):
-    params = {'Bucket': bucket_name, 'Key': object.key}
-    return s3_client.generate_presigned_url('get_object', params)
+    return "https://%s.s3.amazonaws.com/%s" % (bucket_name, object.key)
 
 
 def generateJsonFromUrl(resourceUrl: str, resourceName):

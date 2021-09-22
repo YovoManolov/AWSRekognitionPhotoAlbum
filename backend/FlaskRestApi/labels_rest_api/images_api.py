@@ -3,12 +3,16 @@ from flask import jsonify, request
 from flask.helpers import make_response
 from flask_mongoengine import MongoEngine
 from flask import Flask
+from mongoengine.base.fields import ObjectIdField
 from mongoengine.fields import EmbeddedDocumentField, ListField
 from mongoengine.queryset.queryset import QuerySet
-from callToAws.imageOperations import getAllImageDocuments, getAllImageDocumentsFromFile, upload_file, getImageDocumentByResourceName
+from callToAws.imageOperations import getAllImageDocumentsFromFile, getAllImageDocuments, upload_file, getImageDocumentByResourceName
 from mongo_constants import mongodb_passowrd, database_name
+from bson.objectid import ObjectId
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app)
 
 DB_URI = ("mongodb+srv://admin:{}@clusterawsrekognitionph.q1bc1.mongodb.net/{}?retryWrites=true&w=majority".format(mongodb_passowrd, database_name))
 app.config["MONGODB_HOST"] = DB_URI
@@ -29,7 +33,7 @@ class Labels(db.EmbeddedDocument):
 
 
 class Image(db.Document):
-    _id = db.StringField(primary_key=True)
+    _id = db.StringField
     Image = db.StringField()
     Labels = ListField(EmbeddedDocumentField(Labels))
 
@@ -42,18 +46,19 @@ class Image(db.Document):
 
 
 @app.route('/')
+@cross_origin()
 def flask_mongodb_atlas():
     return "flask mongodb atlas!"
 
 
 @app.route('/awsRekognitionPhotoAlbum/populateImages', methods=['POST'])
 def populate_images():
-    for newMongoImageJson in getAllImageDocumentsFromFile():
-        # for newMongoImageJson in getAllImageDocuments():
+    for newMongoImageJson in getAllImageDocuments():
         createImage(newMongoImageJson)
 
 
 @app.route('/awsRekognitionPhotoAlbum/images', methods=['GET', 'POST'])
+@cross_origin()
 def api_images():
     if request.method == "GET":
         return retrieveAllImages()
@@ -69,13 +74,15 @@ def api_images():
 
 
 @app.route('/awsRekognitionPhotoAlbum/images/label/<labelToFind>', methods=['GET'])
+@cross_origin()
 def api_watch_images(labelToFind):
     if request.method == "GET":
-        images = Image.objects(Labels__Name=labelToFind)
+        images = Image.objects(Labels__Name__icontains=labelToFind)
         return make_response(jsonify(images), 200)
 
 
 @app.route('/awsRekognitionPhotoAlbum/images/<_id>', methods=['GET', 'DELETE'])
+@cross_origin()
 def api_each_image(_id):
     if request.method == "GET":
         return getImageById(_id)
@@ -104,15 +111,17 @@ def getImageById(idOfImageToGet: str):
         return make_response("", 404)
 
 
-def updateImage(idToUpdate: str, content: any):
-    image_obj = Image.objects(id=idToUpdate).first()
-    image_obj.update(Image=content['Image'], Labels=content['Labels'])
-    return make_response("", 204)
-
-
-def deleteImage(idToDelete: str):
-    Image.objects(_id=idToDelete).delete()
+def deleteImage(_id: str):
+    idToDelete = ObjectId(_id)
+    obj = Image.objects(_id=idToDelete).first()
+    obj.delete()
     return make_response("", 200)
+
+# def updateImage(_id: str, content: any):
+#     idToUpdate = ObjectId(_id)
+#     image_obj = Image.objects(id=idToUpdate).first()
+#     image_obj.update(Image=content['Image'], Labels=content['Labels'])
+#     return make_response("", 204)
 
 
 if __name__ == "__main__":

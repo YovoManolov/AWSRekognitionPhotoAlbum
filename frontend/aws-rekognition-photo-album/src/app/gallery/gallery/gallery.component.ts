@@ -38,7 +38,7 @@ export class GalleryComponent implements OnInit {
         this.loadNatureImages();
         break;
       case "watches":
-        this.loadCarImages();
+        this.loadWatchImages();
         break;
     }
   }
@@ -63,7 +63,7 @@ export class GalleryComponent implements OnInit {
 
 
   loadFaceImages() {
-    this.imageService.getCarImages().subscribe((carImages: Image[]) => {
+    this.imageService.getFaceImages().subscribe((carImages: Image[]) => {
       this.visibleImages = carImages
     },
       error => {
@@ -73,7 +73,7 @@ export class GalleryComponent implements OnInit {
 
 
   loadNatureImages() {
-    this.imageService.getCarImages().subscribe((carImages: Image[]) => {
+    this.imageService.getNatureImages().subscribe((carImages: Image[]) => {
       this.visibleImages = carImages
     },
       error => {
@@ -83,7 +83,7 @@ export class GalleryComponent implements OnInit {
 
 
   loadWatchImages() {
-    this.imageService.getCarImages().subscribe((carImages: Image[]) => {
+    this.imageService.getWatchImages().subscribe((carImages: Image[]) => {
       this.visibleImages = carImages
     },
       error => {

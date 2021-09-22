@@ -1,8 +1,9 @@
 <div fxLayout="row" fxLayoutAlign="space-around center">
     <figure *ngFor="let image of visibleImages">
         <a href="{{image.Image}}" target="_blank">
-            <img src="{{image.Image}}" class="gallery__image" />
+            <img src="{{image.Image}}" width="300px" height="250px"
+                class="gallery__image" />
         </a>
-        <figcaption *ngFor="let label of image.Labels">{{image.Labels}}</figcaption>
+        <figcaption *ngFor="let label of image.Labels">{{label.Name}}</figcaption>
     </figure>
 </div>
