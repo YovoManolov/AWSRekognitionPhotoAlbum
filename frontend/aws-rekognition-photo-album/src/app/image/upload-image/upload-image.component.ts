@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { FileUploadService } from '../image-service/upload-service/file-upload.service';
 
 @Component({
   selector: 'app-upload-image',
@@ -9,43 +11,22 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class UploadImageComponent {
 
-  imgFile: string | undefined;
+  selecetdFile: File | undefined;
+  fileUrl: string | undefined;
 
-  uploadForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    file: new FormControl('', [Validators.required]),
-    imgSrc: new FormControl('', [Validators.required])
-  });
+  constructor(private fileUploadService: FileUploadService) { }
 
-  constructor(private httpClient: HttpClient) { }
-
-  get uf() {
-    return this.uploadForm.controls;
-  }
-
-  onImageChange(e: any) {
-    const reader = new FileReader();
-
-    if (e.target.files && e.target.files.length) {
-      const [file] = e.target.files;
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        this.imgFile = reader.result as string;
-        this.uploadForm.patchValue({
-          imgSrc: reader.result
-        });
-
-      };
-    }
+  onFileUpload(event: any) {
+    this.selecetdFile = event.target.files[0]
   }
 
   upload() {
-    console.log(this.uploadForm.value);
-    this.httpClient.post('some upload url', this.uploadForm.value)
-      .subscribe(response => {
-        alert('Image has been uploaded.');
-      })
+    //URL.createObjectURL(this.selecetdFile?.name);
+    this.fileUrl = this.selecetdFile?.name;
+    if (this.fileUrl !== undefined) {
+      this.fileUploadService.uploadImage(this.fileUrl);
+      console.log(this.fileUrl);
+    }
   }
 
 }
