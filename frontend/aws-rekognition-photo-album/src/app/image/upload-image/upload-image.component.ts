@@ -1,32 +1,74 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { catchError } from 'rxjs/operators';
 import { FileUploadService } from '../image-service/upload-service/file-upload.service';
+
+const uploadUrl = 'http://localhost:8000/awsRekognitionPhotoAlbum/images';
 
 @Component({
   selector: 'app-upload-image',
   templateUrl: './upload-image.component.html',
-  styleUrls: ['./upload-image.component.css']
+  styleUrls: ['./upload-image.component.css'],
 })
 export class UploadImageComponent {
+  imageSrc: string | undefined;
+  fullFilePath: string | undefined;
+
+  myForm = new FormGroup({
+    file: new FormControl('', [Validators.required]),
+    fileSource: new FormControl('', [Validators.required]),
+  });
+
+  constructor(
+    private http: HttpClient,
+    private fileUploadService: FileUploadService
+  ) { }
+
+  get f() {
+    return this.myForm.controls;
+  }
 
   selecetdFile: File | undefined;
   fileUrl: string | undefined;
 
-  constructor(private fileUploadService: FileUploadService) { }
+  onFileChange(event: any) {
+    const reader = new FileReader();
 
-  onFileUpload(event: any) {
-    this.selecetdFile = event.target.files[0]
-  }
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
 
-  upload() {
-    //URL.createObjectURL(this.selecetdFile?.name);
-    this.fileUrl = this.selecetdFile?.name;
-    if (this.fileUrl !== undefined) {
-      this.fileUploadService.uploadImage(this.fileUrl);
-      console.log(this.fileUrl);
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        this.imageSrc = reader.result as string;
+        this.myForm.patchValue({
+          fileSource: reader.result,
+        });
+      };
     }
   }
 
+  upload() {
+    // let headers = new HttpHeaders({
+    //   'Content-Type': 'application/json'
+    // });
+    // let options = { "headers": headers };
+    this.fullFilePath = this.myForm.value.file
+    let data = {
+      "base64Image": this.imageSrc,
+      "fullFilePath": this.fullFilePath
+    }
+    let body = JSON.stringify(data);
+    console.log(data);
+
+    return this.http.post(uploadUrl, body).subscribe(
+      res => {
+        console.log(res);
+      }
+    );
+  }
+
 }
+
+

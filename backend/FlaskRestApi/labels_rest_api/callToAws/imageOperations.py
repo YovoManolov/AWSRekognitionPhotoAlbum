@@ -2,7 +2,7 @@ import json
 import logging
 from botocore.exceptions import ClientError
 import boto3
-
+import base64
 from callToAws.utils.jsonModificator import extractOnlyLabelsFromAwsResponse
 from callToAws.utils.jsonUtils import writeToJson
 
@@ -68,3 +68,20 @@ def upload_file(file_name, object_name=None):
         logging.error(e)
         return False
     return True
+
+
+# def uploadBase64Image(image_base64: str, obj_name: str):
+#     try:
+#         with open(image_base64, 'rb') as data:
+#             s3_client.upload_fileobj(data, bucket_name, obj_name)
+#     except ClientError as e:
+#         logging.error(e)
+#         return False
+#     return True
+
+
+def uploadBase64Image(image_base64: str, obj_name: str):
+    image_base64 = image_base64.replace("data:image/jpeg;base64,", "")
+    logging.Logger("base64 image: " + image_base64, logging.INFO)
+    obj = s3_resource.Object(bucket_name, obj_name)
+    obj.put(Body=base64.b64decode(image_base64))

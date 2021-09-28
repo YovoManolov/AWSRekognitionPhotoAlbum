@@ -3,26 +3,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const uploadUrl = 'http://localhost:8000/awsRekognitionPhotoAlbum/uploadImage';
+const uploadUrl = 'http://localhost:8000/awsRekognitionPhotoAlbum/images';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  public uploadImage(imageUrl: string): Observable<string | any> {
-    const formData: FormData = new FormData();
-    formData.append("filePath", imageUrl)
-
-    return this.httpClient.post(uploadUrl, formData).pipe(
-      catchError(
-        (err) => {
-          console.error(err);
-          throw err;
-        }
-      )
-    );
+  public uploadImage(value: any): Observable<string | any> {
+    return this.http.post(uploadUrl, value);
   }
 
 }
