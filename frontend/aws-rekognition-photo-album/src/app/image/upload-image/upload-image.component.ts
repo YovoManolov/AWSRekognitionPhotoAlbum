@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { FileUploadService } from '../image-service/upload-service/file-upload.service';
+import { String, StringBuilder } from 'typescript-string-operations';
 
 const uploadUrl = 'http://localhost:8000/awsRekognitionPhotoAlbum/images';
 
@@ -50,19 +51,22 @@ export class UploadImageComponent {
   }
 
   upload() {
-    // let headers = new HttpHeaders({
-    //   'Content-Type': 'application/json'
-    // });
-    // let options = { "headers": headers };
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    let options = { "headers": headers };
     this.fullFilePath = this.myForm.value.file
-    let data = {
-      "base64Image": this.imageSrc,
-      "fullFilePath": this.fullFilePath
-    }
-    let body = JSON.stringify(data);
-    console.log(data);
 
-    return this.http.post(uploadUrl, body).subscribe(
+    // let data = {
+    //   base64Image: this.imageSrc,
+    //   fullFilePath: this.fullFilePath
+    // }
+
+    let formData: any = new FormData();
+    formData.append("base64Image", this.imageSrc);
+    formData.append("fullFilePath", this.fullFilePath);
+    console.log(formData)
+    return this.http.post(uploadUrl, formData).subscribe(
       res => {
         console.log(res);
       }
@@ -70,5 +74,3 @@ export class UploadImageComponent {
   }
 
 }
-
-

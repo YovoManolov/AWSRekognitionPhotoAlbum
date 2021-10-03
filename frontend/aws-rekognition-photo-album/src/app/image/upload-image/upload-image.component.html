@@ -7,10 +7,6 @@
             type="file"
             class="form-control"
             (change)="onFileChange($event)">
-        <!-- <div *ngIf="f.file.touched && f.file.invalid" class="alert
-            alert-danger">
-            <div *ngIf="f.file.errors?.required">File is required.</div>
-        </div> -->
     </div>
     <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
     <button class="btn btn-primary" type="submit">Submit</button>

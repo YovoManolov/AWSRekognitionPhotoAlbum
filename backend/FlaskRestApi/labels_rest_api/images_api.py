@@ -1,15 +1,14 @@
 import os
-from flask import jsonify, request
+from bson.objectid import ObjectId
+from flask import request
 from flask.helpers import make_response
+from flask.json import jsonify
 from flask_mongoengine import MongoEngine
 from flask import Flask
-from mongoengine.base.fields import ObjectIdField
-from mongoengine.fields import EmbeddedDocumentField, ListField
-from mongoengine.queryset.queryset import QuerySet
 from callToAws.imageOperations import getAllImageDocumentsFromFile, getAllImageDocuments, upload_file, getImageDocumentByResourceName, uploadBase64Image
 from mongo_constants import mongodb_passowrd, database_name
-from bson.objectid import ObjectId
 from flask_cors import CORS, cross_origin
+from mongoengine.fields import EmbeddedDocumentField, ListField
 
 app = Flask(__name__)
 CORS(app)
@@ -57,22 +56,10 @@ def populate_images():
         createImage(newMongoImageJson)
 
 
-# @app.route('/awsRekognitionPhotoAlbum/images', methods=['GET', 'POST'])
-# @cross_origin()
-# def api_images():
-#     if request.method == "GET":
-#         return retrieveAllImages()
-#     elif request.method == "POST":
-#         filePath = request.form.get("filePath")
-#         object_name = 'resources/' + os.path.basename(filePath)
-#         if upload_file(filePath, object_name):
-#             newMongoImageJson = getImageDocumentByResourceName(object_name)
-#             createImage(newMongoImageJson)
-#             return make_response("", 204)
-#         else:
-#             return make_response("", 500)
-#     else:
-#         return make_response("", 500)
+def createImage(newMongoImageJson: dict):
+    newMongoImageDoc = Image(Image=newMongoImageJson['Image'],
+                             Labels=newMongoImageJson['Labels'])
+    newMongoImageDoc.save()
 
 
 @app.route('/awsRekognitionPhotoAlbum/images', methods=['GET', 'POST'])
@@ -81,33 +68,9 @@ def api_images():
     if request.method == "GET":
         return retrieveAllImages()
     elif request.method == "POST":
-        base64Image = request.form.get("base64Image")
-        fullFilePath = request.form.get("fullFilePath")
-        fileNameWithExtention = os.path.basename(fullFilePath)
-        object_name = 'resources/' + fileNameWithExtention
-        if uploadBase64Image(base64Image, object_name):
-            newMongoImageJson = getImageDocumentByResourceName(object_name)
-            createImage(newMongoImageJson)
-            return make_response("", 204)
-        else:
-            return make_response("", 500)
-
-
-@app.route('/awsRekognitionPhotoAlbum/images/label/<labelToFind>', methods=['GET'])
-@cross_origin()
-def api_watch_images(labelToFind):
-    if request.method == "GET":
-        images = Image.objects(Labels__Name__icontains=labelToFind)
-        return make_response(jsonify(images), 200)
-
-
-@app.route('/awsRekognitionPhotoAlbum/images/<_id>', methods=['GET', 'DELETE'])
-@cross_origin()
-def api_each_image(_id):
-    if request.method == "GET":
-        return getImageById(_id)
-    elif request.method == "DELETE":
-        return deleteImage(_id)
+        base64Image = request.form["base64Image"]
+        fullFilePath = request.form["fullFilePath"]
+        return uploadImage(base64Image, fullFilePath)
 
 
 def retrieveAllImages():
@@ -117,10 +80,49 @@ def retrieveAllImages():
     return make_response(jsonify(images), 200)
 
 
-def createImage(newMongoImageJson: dict):
-    newMongoImageDoc = Image(Image=newMongoImageJson['Image'],
-                             Labels=newMongoImageJson['Labels'])
-    newMongoImageDoc.save()
+def uploadImage(base64Image: str, fullFilePath: str):
+    fileNameWithExtention = os.path.basename(fullFilePath)
+    object_name = 'resources/' + fileNameWithExtention
+    if uploadBase64Image(base64Image, object_name):
+        newMongoImageJson = getImageDocumentByResourceName(object_name)
+        createImage(newMongoImageJson)
+        return make_response("", 204)
+    else:
+        return make_response("", 500)
+
+
+@app.route('/awsRekognitionPhotoAlbum/uploaImageFromFilePath', methods=['POST'])
+@cross_origin()
+def uploaImageFromFilePath():
+    filePath = request.form.get("filePath")
+    object_name = 'resources/' + os.path.basename(filePath)
+    if upload_file(filePath, object_name):
+        newMongoImageJson = getImageDocumentByResourceName(object_name)
+        createImage(newMongoImageJson)
+        return make_response("", 204)
+    else:
+        return make_response("", 500)
+
+
+@app.route('/awsRekognitionPhotoAlbum/images/label/<labelToFind>', methods=['GET'])
+@cross_origin()
+def api_watch_images(labelToFind):
+    if request.method == "GET":
+        getImagesByLabel(labelToFind)
+
+
+def getImagesByLabel(labelToFind: str):
+    images = Image.objects(Labels__Name__icontains=labelToFind)
+    return make_response(jsonify(images), 200)
+
+
+@app.route('/awsRekognitionPhotoAlbum/images/<_id>', methods=['GET', 'DELETE'])
+@cross_origin()
+def api_each_image(_id):
+    if request.method == "GET":
+        return getImageById(_id)
+    elif request.method == "DELETE":
+        return deleteImage(_id)
 
 
 def getImageById(idOfImageToGet: str):
