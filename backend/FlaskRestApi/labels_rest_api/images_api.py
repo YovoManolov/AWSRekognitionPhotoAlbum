@@ -80,6 +80,16 @@ def retrieveAllImages():
     return make_response(jsonify(images), 200)
 
 
+# untested
+def retrieveAllLabels():
+    labels = []
+    for image in Image.objects:
+        labels.extend(image.Labels)
+
+    labels = list(set(labels))
+    return make_response(jsonify(labels), 200)
+
+
 def uploadImage(base64Image: str, fullFilePath: str):
     fileNameWithExtention = os.path.basename(fullFilePath)
     object_name = 'resources/' + fileNameWithExtention

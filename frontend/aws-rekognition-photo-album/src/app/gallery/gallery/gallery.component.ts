@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageService } from 'src/app/image/image-service/image.service';
 import { Image } from 'src/app/models/image/image.module';
+import { Label } from 'src/app/models/labels/label.module';
 
 @Component({
   selector: 'app-gallery',
@@ -12,6 +13,7 @@ export class GalleryComponent implements OnInit {
   title = 'Recent Photos';
   @Input() filterBy: string = 'all';
   visibleImages: Array<Image> = [];
+  //visibleLabels: Array<Label> = [];
   filterParam: string = "";
 
   constructor(
@@ -51,6 +53,18 @@ export class GalleryComponent implements OnInit {
         console.log(error);
       });
   }
+
+  // loadOnlyLabels() {
+  //   this.imageService.getAll().subscribe((allImages: Image[]) => {
+  //     for (let image of allImages) {
+  //       let imageLabels = image.Labels;
+  //       this.visibleLabels.concat(imageLabels);
+  //     }
+  //   },
+  //     error => {
+  //       console.log(error);
+  //     });
+  // }
 
   loadCarImages() {
     this.imageService.getCarImages().subscribe((carImages: Image[]) => {
