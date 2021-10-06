@@ -117,12 +117,8 @@ def uploaImageFromFilePath():
 @app.route('/awsRekognitionPhotoAlbum/images/label/<labelToFind>', methods=['GET'])
 @cross_origin()
 def api_watch_images(labelToFind):
-    if request.method == "GET":
-        getImagesByLabel(labelToFind)
-
-
-def getImagesByLabel(labelToFind: str):
     images = Image.objects(Labels__Name__icontains=labelToFind)
+    print(images)
     return make_response(jsonify(images), 200)
 
 

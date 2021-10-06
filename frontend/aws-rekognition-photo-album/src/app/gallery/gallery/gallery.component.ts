@@ -13,7 +13,7 @@ export class GalleryComponent implements OnInit {
   title = 'Recent Photos';
   @Input() filterBy: string = 'all';
   visibleImages: Array<Image> = [];
-  //visibleLabels: Array<Label> = [];
+  visibleLabels: Array<String> = [];
   filterParam: string = "";
 
   constructor(
@@ -25,49 +25,61 @@ export class GalleryComponent implements OnInit {
       this.filterParam = params['filterParam'];
     });
     this.route.queryParams.subscribe(params => console.log('queryParams', params['st']));
-
-    switch (this.filterParam) {
-      case "all":
-        this.loadImages();
-        break;
-      case "cars":
-        this.loadCarImages();
-        break;
-      case "faces":
-        this.loadFaceImages();
-        break;
-      case "nature":
-        this.loadNatureImages();
-        break;
-      case "watches":
-        this.loadWatchImages();
-        break;
+    if (this.filterParam === "all") {
+      this.loadImages();
+    } else {
+      this.loadImagesByLabel(this.filterParam)
     }
   }
 
   loadImages() {
     this.imageService.getAll().subscribe((allImages: Image[]) => {
       this.visibleImages = allImages
+      this.loadAllLabels();
     },
       error => {
         console.log(error);
       });
   }
 
-  // loadOnlyLabels() {
-  //   this.imageService.getAll().subscribe((allImages: Image[]) => {
-  //     for (let image of allImages) {
-  //       let imageLabels = image.Labels;
-  //       this.visibleLabels.concat(imageLabels);
-  //     }
-  //   },
-  //     error => {
-  //       console.log(error);
-  //     });
-  // }
+  loadAllLabels() {
+    let labelNames!: Array<String>;
+    if (this.visibleImages != undefined && this.visibleImages.length > 0) {
+      for (let image of this.visibleImages) {
+        let imageLabels = image.Labels;
+        if (imageLabels != undefined) {
+          labelNames = this.getLabelNamesFromLabelObject(imageLabels)
+          this.visibleLabels = this.visibleLabels.concat(labelNames);
+        }
+      }
+      let setOfLabels = new Set(this.visibleLabels);
+      this.visibleLabels = Array.from(setOfLabels);
+    }
+  }
+
+  getLabelNamesFromLabelObject(labels: Array<Label>) {
+    var labelNames: string[] = new Array()
+    for (let label of labels) {
+      if (label.Name !== "") {
+        labelNames.push(label.Name!)
+      }
+    }
+    return labelNames;
+  }
+
+  loadImagesByLabel(label: String) {
+    this.imageService.getImagesByLabel(label).subscribe((images: Image[]) => {
+      this.visibleImages = images
+      this.loadAllLabels();
+    },
+      error => {
+        console.log(error);
+      });
+  }
+
 
   loadCarImages() {
-    this.imageService.getCarImages().subscribe((carImages: Image[]) => {
+    this.imageService.getImagesByLabel("car").subscribe((carImages: Image[]) => {
       this.visibleImages = carImages
     },
       error => {
@@ -77,8 +89,8 @@ export class GalleryComponent implements OnInit {
 
 
   loadFaceImages() {
-    this.imageService.getFaceImages().subscribe((carImages: Image[]) => {
-      this.visibleImages = carImages
+    this.imageService.getImagesByLabel("face").subscribe((faceImages: Image[]) => {
+      this.visibleImages = faceImages
     },
       error => {
         console.log(error);
@@ -87,8 +99,8 @@ export class GalleryComponent implements OnInit {
 
 
   loadNatureImages() {
-    this.imageService.getNatureImages().subscribe((carImages: Image[]) => {
-      this.visibleImages = carImages
+    this.imageService.getImagesByLabel("nature").subscribe((natureImages: Image[]) => {
+      this.visibleImages = natureImages
     },
       error => {
         console.log(error);
@@ -97,8 +109,8 @@ export class GalleryComponent implements OnInit {
 
 
   loadWatchImages() {
-    this.imageService.getWatchImages().subscribe((carImages: Image[]) => {
-      this.visibleImages = carImages
+    this.imageService.getImagesByLabel("watch").subscribe((watchImages: Image[]) => {
+      this.visibleImages = watchImages
     },
       error => {
         console.log(error);

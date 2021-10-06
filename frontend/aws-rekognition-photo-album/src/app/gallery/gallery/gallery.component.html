@@ -1,3 +1,9 @@
+<!-- <div *ngIf="filterParam ==='all'"> -->
+<div>
+    <a class="btn btn-outline-secondary" *ngFor="let label of visibleLabels"
+        href="/awsRekognitionPhotoAlbum/images/{{label}}"
+        role="button">{{label}}</a>
+</div>
 <div fxLayout="row" fxLayoutAlign="space-around center">
     <figure *ngFor="let image of visibleImages">
         <a href="{{image.Image}}" target="_blank">

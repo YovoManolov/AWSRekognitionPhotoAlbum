@@ -16,20 +16,8 @@ export class ImageService {
     return this.http.get(`${baseUrl}`);
   }
 
-  getCarImages(): Observable<any> {
-    return this.http.get(`${baseUrl}/label/Car`);
-  }
-
-  getFaceImages(): Observable<any> {
-    return this.http.get(`${baseUrl}/label/Face`);
-  }
-
-  getNatureImages(): Observable<any> {
-    return this.http.get(`${baseUrl}/label/Nature`);
-  }
-
-  getWatchImages(): Observable<any> {
-    return this.http.get(`${baseUrl}/label/Watch`);
+  getImagesByLabel(label: String): Observable<any> {
+    return this.http.get(`${baseUrl}/label/${label}`);
   }
 
   update(id: string, data: any) {
