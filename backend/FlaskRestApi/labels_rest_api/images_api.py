@@ -5,7 +5,8 @@ from flask.helpers import make_response
 from flask.json import jsonify
 from flask_mongoengine import MongoEngine
 from flask import Flask
-from callToAws.imageOperations import getAllImageDocumentsFromFile, getAllImageDocuments, upload_file, getImageDocumentByResourceName, uploadBase64Image
+from callToAws.imageOperations import getAllImageDocumentsFromFile, getAllImageDocuments, deleteS3Object
+from callToAws.imageOperations import upload_file, getImageDocumentByResourceName, uploadBase64Image
 from mongo_constants import mongodb_passowrd, database_name
 from flask_cors import CORS, cross_origin
 from mongoengine.fields import EmbeddedDocumentField, ListField
@@ -80,16 +81,6 @@ def retrieveAllImages():
     return make_response(jsonify(images), 200)
 
 
-# untested
-def retrieveAllLabels():
-    labels = []
-    for image in Image.objects:
-        labels.extend(image.Labels)
-
-    labels = list(set(labels))
-    return make_response(jsonify(labels), 200)
-
-
 def uploadImage(base64Image: str, fullFilePath: str):
     fileNameWithExtention = os.path.basename(fullFilePath)
     object_name = 'resources/' + fileNameWithExtention
@@ -140,10 +131,22 @@ def getImageById(idOfImageToGet: str):
 
 
 def deleteImage(_id: str):
-    idToDelete = ObjectId(_id)
-    obj = Image.objects(_id=idToDelete).first()
-    obj.delete()
+    objectIdToDelete = ObjectId(_id)
+    getS3Url = getS3ObjectKeyByMongoId(objectIdToDelete)
+    object_name = 'resources/' + os.path.basename(getS3Url)
+    deleteMongoImage(objectIdToDelete)
+    deleteS3Object(object_name)
     return make_response("", 200)
+
+
+def getS3ObjectKeyByMongoId(mongoObjectId: ObjectId):
+    image = Image.objec ts(_id=mongoObjectId).first()
+    return image
+
+
+def deleteMongoImage(objectIdToDelete: ObjectId):
+    obj = Image.objects(_id=objectIdToDelete).first()
+    obj.delete()
 
 
 if __name__ == "__main__":

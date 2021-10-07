@@ -77,44 +77,4 @@ export class GalleryComponent implements OnInit {
       });
   }
 
-
-  loadCarImages() {
-    this.imageService.getImagesByLabel("car").subscribe((carImages: Image[]) => {
-      this.visibleImages = carImages
-    },
-      error => {
-        console.log(error);
-      });
-  }
-
-
-  loadFaceImages() {
-    this.imageService.getImagesByLabel("face").subscribe((faceImages: Image[]) => {
-      this.visibleImages = faceImages
-    },
-      error => {
-        console.log(error);
-      });
-  }
-
-
-  loadNatureImages() {
-    this.imageService.getImagesByLabel("nature").subscribe((natureImages: Image[]) => {
-      this.visibleImages = natureImages
-    },
-      error => {
-        console.log(error);
-      });
-  }
-
-
-  loadWatchImages() {
-    this.imageService.getImagesByLabel("watch").subscribe((watchImages: Image[]) => {
-      this.visibleImages = watchImages
-    },
-      error => {
-        console.log(error);
-      });
-  }
-
 }

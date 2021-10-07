@@ -1,4 +1,3 @@
-<!-- <div *ngIf="filterParam ==='all'"> -->
 <div>
     <a class="btn btn-outline-secondary" *ngFor="let label of visibleLabels"
         href="/awsRekognitionPhotoAlbum/images/{{label}}"
@@ -11,5 +10,8 @@
                 class="gallery__image" />
         </a>
         <figcaption *ngFor="let label of image.Labels">{{label.Name}}</figcaption>
+        <a class="btn btn-outline-secondary delete"
+            href=""
+            role="button">Delete</a>
     </figure>
 </div>

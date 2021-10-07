@@ -25,3 +25,7 @@
 	margin-left: 5px;
 	margin-top: 5px ;
   }
+
+  a.btn.btn-outline-secondary.delete {
+	width: 100%;
+  }

@@ -69,6 +69,15 @@ def upload_file(file_name, object_name=None):
     return True
 
 
+def deleteS3Object(objectKey: str):
+    try:
+        s3_client.delete_object(bucket_name, objectKey)
+    except ClientError as e:
+        logging.error(e)
+        return False
+    return True
+
+
 def uploadBase64Image(image_base64: str, obj_name: str):
     try:
         image_base64 = image_base64.replace(
