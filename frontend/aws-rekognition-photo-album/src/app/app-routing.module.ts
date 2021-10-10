@@ -6,6 +6,7 @@ import { UploadImageComponent } from './image/upload-image/upload-image.componen
 const routes: Routes = [
   { path: '', redirectTo: 'awsRekognitionPhotoAlbum/images/', pathMatch: 'full' },
   { path: 'awsRekognitionPhotoAlbum/images/:filterParam', component: GalleryComponent },
+  // { path: 'awsRekognitionPhotoAlbum/images/:filterParam/:objectIdToDelete', component: GalleryComponent },
   { path: 'awsRekognitionPhotoAlbum/uploadImage', component: UploadImageComponent }
 ];
 

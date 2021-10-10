@@ -1,11 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { FileUploadService } from '../image-service/upload-service/file-upload.service';
-import { String, StringBuilder } from 'typescript-string-operations';
-
-const uploadUrl = 'http://localhost:8000/awsRekognitionPhotoAlbum/images';
 
 @Component({
   selector: 'app-upload-image',
@@ -13,6 +9,7 @@ const uploadUrl = 'http://localhost:8000/awsRekognitionPhotoAlbum/images';
   styleUrls: ['./upload-image.component.css'],
 })
 export class UploadImageComponent {
+
   imageSrc: string | undefined;
   fullFilePath: string | undefined;
 
@@ -22,8 +19,8 @@ export class UploadImageComponent {
   });
 
   constructor(
-    private http: HttpClient,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    private router: Router
   ) { }
 
   get f() {
@@ -51,26 +48,9 @@ export class UploadImageComponent {
   }
 
   upload() {
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    let options = { "headers": headers };
     this.fullFilePath = this.myForm.value.file
-
-    // let data = {
-    //   base64Image: this.imageSrc,
-    //   fullFilePath: this.fullFilePath
-    // }
-
-    let formData: any = new FormData();
-    formData.append("base64Image", this.imageSrc);
-    formData.append("fullFilePath", this.fullFilePath);
-    console.log(formData)
-    return this.http.post(uploadUrl, formData).subscribe(
-      res => {
-        console.log(res);
-      }
-    );
+    this.fileUploadService.upload(this.fullFilePath, this.imageSrc)
+    this.router.navigateByUrl('awsRekognitionPhotoAlbum/images/all');
   }
 
 }

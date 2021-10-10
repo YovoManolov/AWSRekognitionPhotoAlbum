@@ -10,8 +10,7 @@
                 class="gallery__image" />
         </a>
         <figcaption *ngFor="let label of image.Labels">{{label.Name}}</figcaption>
-        <a class="btn btn-outline-secondary delete"
-            href=""
-            role="button">Delete</a>
+        <button class="btn btn-outline-secondary delete"
+            (click)="deleteObjectById(image._id)">Delete</button>
     </figure>
 </div>

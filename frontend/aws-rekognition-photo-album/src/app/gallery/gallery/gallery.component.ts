@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import ObjectID from 'bson-objectid';
+import { ObjectId } from 'mongoose';
 import { ImageService } from 'src/app/image/image-service/image.service';
 import { Image } from 'src/app/models/image/image.module';
 import { Label } from 'src/app/models/labels/label.module';
@@ -18,13 +20,14 @@ export class GalleryComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private imageService: ImageService) { }
+    private imageService: ImageService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.filterParam = params['filterParam'];
     });
-    this.route.queryParams.subscribe(params => console.log('queryParams', params['st']));
+
     if (this.filterParam === "all") {
       this.loadImages();
     } else {
@@ -35,6 +38,16 @@ export class GalleryComponent implements OnInit {
   loadImages() {
     this.imageService.getAll().subscribe((allImages: Image[]) => {
       this.visibleImages = allImages
+      this.loadAllLabels();
+    },
+      error => {
+        console.log(error);
+      });
+  }
+
+  loadImagesByLabel(label: String) {
+    this.imageService.getImagesByLabel(label).subscribe((images: Image[]) => {
+      this.visibleImages = images
       this.loadAllLabels();
     },
       error => {
@@ -67,14 +80,19 @@ export class GalleryComponent implements OnInit {
     return labelNames;
   }
 
-  loadImagesByLabel(label: String) {
-    this.imageService.getImagesByLabel(label).subscribe((images: Image[]) => {
-      this.visibleImages = images
-      this.loadAllLabels();
-    },
-      error => {
+  deleteObjectById(_id?: any) {
+    this.imageService.delete(_id).subscribe(
+      (response) => {
+        console.log(response);
+        this.router.navigate(['/awsRekognitionPhotoAlbum/images/all']);
+      },
+      (error) => {
         console.log(error);
-      });
+        this.router.navigate(['/awsRekognitionPhotoAlbum/images/all']);
+      }
+    );
+    this.imageService.delete(_id)
+    this.router.navigateByUrl('http://localhost:4200/awsRekognitionPhotoAlbum/images/all');
   }
 
 }

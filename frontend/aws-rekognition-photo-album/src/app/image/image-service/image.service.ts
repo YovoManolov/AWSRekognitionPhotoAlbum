@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -20,12 +20,10 @@ export class ImageService {
     return this.http.get(`${baseUrl}/label/${label}`);
   }
 
-  update(id: string, data: any) {
-    return this.http.put(`${baseUrl}/update/`, data);
-  }
-
-  delete(id: string) {
-    return this.http.delete(`${baseUrl}/${id}`);
+  delete(objectId: any): Observable<any> {
+    let httpParams = new HttpParams().set('_id', objectId);
+    let options = { params: httpParams };
+    return this.http.delete(`${baseUrl}/${objectId}`, options);
   }
 
 }

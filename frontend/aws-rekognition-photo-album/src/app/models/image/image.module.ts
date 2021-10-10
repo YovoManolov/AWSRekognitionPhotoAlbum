@@ -8,9 +8,9 @@ import { Label } from '../labels/label.module';
     CommonModule
   ]
 })
-export class Image {
 
-  _id?: string;
+export class Image {
+  _id?: any;
   Image?: string;
   Labels?: Array<Label>;
 

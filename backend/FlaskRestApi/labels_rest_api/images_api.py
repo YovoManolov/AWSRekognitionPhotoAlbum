@@ -6,7 +6,7 @@ from flask.json import jsonify
 from flask_mongoengine import MongoEngine
 from flask import Flask
 from callToAws.imageOperations import getAllImageDocumentsFromFile, getAllImageDocuments, deleteS3Object
-from callToAws.imageOperations import upload_file, getImageDocumentByResourceName, uploadBase64Image
+from callToAws.imageOperations import upload_file, getImageDocumentByResourceKey, uploadBase64Image
 from mongo_constants import mongodb_passowrd, database_name
 from flask_cors import CORS, cross_origin
 from mongoengine.fields import EmbeddedDocumentField, ListField
@@ -16,6 +16,7 @@ CORS(app)
 
 DB_URI = ("mongodb+srv://admin:{}@clusterawsrekognitionph.q1bc1.mongodb.net/{}?retryWrites=true&w=majority".format(mongodb_passowrd, database_name))
 app.config["MONGODB_HOST"] = DB_URI
+app.config['BUCKET'] = 'aws-rekognition-photo-album'
 
 db = MongoEngine()
 db.init_app(app)
@@ -81,11 +82,10 @@ def retrieveAllImages():
     return make_response(jsonify(images), 200)
 
 
-def uploadImage(base64Image: str, fullFilePath: str):
-    fileNameWithExtention = os.path.basename(fullFilePath)
-    object_name = 'resources/' + fileNameWithExtention
-    if uploadBase64Image(base64Image, object_name):
-        newMongoImageJson = getImageDocumentByResourceName(object_name)
+def uploadImage(base64Image: str, filePath: str):
+    resource_key = getResourceKeyFromFilePath(filePath)
+    if uploadBase64Image(base64Image, resource_key):
+        newMongoImageJson = getImageDocumentByResourceKey(resource_key)
         createImage(newMongoImageJson)
         return make_response("", 204)
     else:
@@ -96,20 +96,23 @@ def uploadImage(base64Image: str, fullFilePath: str):
 @cross_origin()
 def uploaImageFromFilePath():
     filePath = request.form.get("filePath")
-    object_name = 'resources/' + os.path.basename(filePath)
-    if upload_file(filePath, object_name):
-        newMongoImageJson = getImageDocumentByResourceName(object_name)
+    resource_key = getResourceKeyFromFilePath(filePath)
+    if upload_file(filePath, resource_key):
+        newMongoImageJson = getImageDocumentByResourceKey(resource_key)
         createImage(newMongoImageJson)
         return make_response("", 204)
     else:
         return make_response("", 500)
 
 
+def getResourceKeyFromFilePath(filePath: str):
+    return 'resources/' + os.path.basename(filePath)
+
+
 @app.route('/awsRekognitionPhotoAlbum/images/label/<labelToFind>', methods=['GET'])
 @cross_origin()
 def api_watch_images(labelToFind):
     images = Image.objects(Labels__Name__icontains=labelToFind)
-    print(images)
     return make_response(jsonify(images), 200)
 
 
@@ -119,7 +122,7 @@ def api_each_image(_id):
     if request.method == "GET":
         return getImageById(_id)
     elif request.method == "DELETE":
-        return deleteImage(_id)
+        return deleteImage(ObjectId(_id))
 
 
 def getImageById(idOfImageToGet: str):
@@ -130,22 +133,21 @@ def getImageById(idOfImageToGet: str):
         return make_response("", 404)
 
 
-def deleteImage(_id: str):
-    objectIdToDelete = ObjectId(_id)
-    getS3Url = getS3ObjectKeyByMongoId(objectIdToDelete)
-    object_name = 'resources/' + os.path.basename(getS3Url)
-    deleteMongoImage(objectIdToDelete)
-    deleteS3Object(object_name)
+def deleteImage(_id: ObjectId):
+    getS3Url = getS3ObjectKeyByMongoId(_id)
+    resource_key = getResourceKeyFromFilePath(getS3Url)
+    deleteMongoImage(_id)
+    deleteS3Object(resource_key, app)
     return make_response("", 200)
 
 
 def getS3ObjectKeyByMongoId(mongoObjectId: ObjectId):
-    image = Image.objec ts(_id=mongoObjectId).first()
-    return image
+    image = Image.objects(id=mongoObjectId).first()
+    return image.Image
 
 
-def deleteMongoImage(objectIdToDelete: ObjectId):
-    obj = Image.objects(_id=objectIdToDelete).first()
+def deleteMongoImage(objectIdToDelete: str):
+    obj = Image.objects(id=objectIdToDelete).first()
     obj.delete()
 
 

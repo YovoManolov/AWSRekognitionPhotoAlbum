@@ -21,7 +21,7 @@ def getAllImageDocuments():
     return mongoImageDocuments
 
 
-def getImageDocumentByResourceName(resourceKey: str):
+def getImageDocumentByResourceKey(resourceKey: str):
     object = s3_resource.Object(bucket_name, resourceKey)
     url = generateUrlFromBucketObject(object)
     return generateJsonFromUrl(url, object.key)
@@ -69,9 +69,18 @@ def upload_file(file_name, object_name=None):
     return True
 
 
-def deleteS3Object(objectKey: str):
+def deleteS3Object(resource_key: str, app):
     try:
-        s3_client.delete_object(bucket_name, objectKey)
+        s3_client.delete_objects(
+            Bucket=app.config['BUCKET'],
+            Delete={
+                'Objects': [
+                    {
+                        'Key': resource_key
+                    }
+                ]
+            }
+        )
     except ClientError as e:
         logging.error(e)
         return False
@@ -82,7 +91,6 @@ def uploadBase64Image(image_base64: str, obj_name: str):
     try:
         image_base64 = image_base64.replace(
             "data:image/jpeg;base64,", "").rstrip(",")
-        print("base64 image: " + image_base64)
         obj = s3_resource.Object(bucket_name, obj_name)
         obj.put(Body=base64.b64decode(image_base64))
     except ClientError as e:
