@@ -2,3 +2,7 @@ form {
 	padding: 10px;
 	margin: auto;
 }
+
+button.btn.btn-primary {
+	margin-left: 10px;
+}

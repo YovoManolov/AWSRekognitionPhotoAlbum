@@ -11,6 +11,6 @@
         </a>
         <figcaption *ngFor="let label of image.Labels">{{label.Name}}</figcaption>
         <button class="btn btn-outline-secondary delete"
-            (click)="deleteObjectById(image._id)">Delete</button>
+            (click)="deleteObjectById(image.Image)">Delete</button>
     </figure>
 </div>

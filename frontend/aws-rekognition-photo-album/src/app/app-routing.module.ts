@@ -4,9 +4,8 @@ import { GalleryComponent } from './gallery/gallery/gallery.component';
 import { UploadImageComponent } from './image/upload-image/upload-image.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'awsRekognitionPhotoAlbum/images/', pathMatch: 'full' },
+  { path: '', redirectTo: 'awsRekognitionPhotoAlbum/images/all', pathMatch: 'full' },
   { path: 'awsRekognitionPhotoAlbum/images/:filterParam', component: GalleryComponent },
-  // { path: 'awsRekognitionPhotoAlbum/images/:filterParam/:objectIdToDelete', component: GalleryComponent },
   { path: 'awsRekognitionPhotoAlbum/uploadImage', component: UploadImageComponent }
 ];
 

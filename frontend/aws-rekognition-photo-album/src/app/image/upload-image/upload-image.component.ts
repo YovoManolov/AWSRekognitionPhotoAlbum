@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FileUploadService } from '../image-service/upload-service/file-upload.service';
@@ -8,7 +8,7 @@ import { FileUploadService } from '../image-service/upload-service/file-upload.s
   templateUrl: './upload-image.component.html',
   styleUrls: ['./upload-image.component.css'],
 })
-export class UploadImageComponent {
+export class UploadImageComponent implements OnInit {
 
   imageSrc: string | undefined;
   fullFilePath: string | undefined;
@@ -22,6 +22,10 @@ export class UploadImageComponent {
     private fileUploadService: FileUploadService,
     private router: Router
   ) { }
+
+  ngOnInit(): void {
+    (document.getElementById('submitUploadButton') as HTMLInputElement).disabled = true;
+  }
 
   get f() {
     return this.myForm.controls;
@@ -45,11 +49,13 @@ export class UploadImageComponent {
         });
       };
     }
+    (document.getElementById('submitUploadButton') as HTMLInputElement).disabled = false;
   }
 
-  upload() {
+  async upload() {
     this.fullFilePath = this.myForm.value.file
     this.fileUploadService.upload(this.fullFilePath, this.imageSrc)
+    await new Promise(f => setTimeout(f, 3000));
     this.router.navigateByUrl('awsRekognitionPhotoAlbum/images/all');
   }
 

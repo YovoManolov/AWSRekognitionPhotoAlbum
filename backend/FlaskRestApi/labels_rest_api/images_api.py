@@ -4,6 +4,7 @@ from flask import request
 from flask.helpers import make_response
 from flask.json import jsonify
 from flask_mongoengine import MongoEngine
+from bson.objectid import ObjectId
 from flask import Flask
 from callToAws.imageOperations import getAllImageDocumentsFromFile, getAllImageDocuments, deleteS3Object
 from callToAws.imageOperations import upload_file, getImageDocumentByResourceKey, uploadBase64Image
@@ -34,7 +35,7 @@ class Labels(db.EmbeddedDocument):
 
 
 class Image(db.Document):
-    _id = db.StringField
+    _id = ObjectId
     Image = db.StringField()
     Labels = ListField(EmbeddedDocumentField(Labels))
 
@@ -116,13 +117,19 @@ def api_watch_images(labelToFind):
     return make_response(jsonify(images), 200)
 
 
-@app.route('/awsRekognitionPhotoAlbum/images/<_id>', methods=['GET', 'DELETE'])
+@app.route('/awsRekognitionPhotoAlbum/images/<_id>', methods=['GET'])
 @cross_origin()
 def api_each_image(_id):
-    if request.method == "GET":
-        return getImageById(_id)
-    elif request.method == "DELETE":
-        return deleteImage(ObjectId(_id))
+    return getImageById(_id)
+
+
+@app.route('/awsRekognitionPhotoAlbum/images/<fileKey>', methods=['DELETE'])
+def api_delete(fileKey):
+    image = Image.objects(Image__icontains=fileKey).first()
+    resource_key = getResourceKeyFromFilePath(fileKey)
+    deleteMongoImage(image.Image)
+    deleteS3Object(resource_key, app)
+    return make_response("", 200)
 
 
 def getImageById(idOfImageToGet: str):
@@ -133,21 +140,8 @@ def getImageById(idOfImageToGet: str):
         return make_response("", 404)
 
 
-def deleteImage(_id: ObjectId):
-    getS3Url = getS3ObjectKeyByMongoId(_id)
-    resource_key = getResourceKeyFromFilePath(getS3Url)
-    deleteMongoImage(_id)
-    deleteS3Object(resource_key, app)
-    return make_response("", 200)
-
-
-def getS3ObjectKeyByMongoId(mongoObjectId: ObjectId):
-    image = Image.objects(id=mongoObjectId).first()
-    return image.Image
-
-
-def deleteMongoImage(objectIdToDelete: str):
-    obj = Image.objects(id=objectIdToDelete).first()
+def deleteMongoImage(fileKey: ObjectId):
+    obj = Image.objects(Image__icontains=fileKey).first()
     obj.delete()
 
 

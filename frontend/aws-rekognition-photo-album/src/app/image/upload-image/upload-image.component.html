@@ -1,6 +1,5 @@
 <form [formGroup]="myForm" (ngSubmit)="upload()">
     <div class="form-group">
-        <label for="file">File</label>
         <input
             formControlName="file"
             id="file"
@@ -9,5 +8,5 @@
             (change)="onFileChange($event)">
     </div>
     <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
-    <button class="btn btn-primary" type="submit">Submit</button>
+    <button id="submitUploadButton" class="btn btn-primary" type="submit">Submit</button>
 </form>

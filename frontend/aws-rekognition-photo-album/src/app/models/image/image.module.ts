@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Label } from '../labels/label.module';
+import ObjectID from 'bson-objectid';
 
 @NgModule({
   declarations: [],
@@ -10,8 +11,7 @@ import { Label } from '../labels/label.module';
 })
 
 export class Image {
-  _id?: any;
+  _id?: ObjectID;
   Image?: string;
   Labels?: Array<Label>;
-
 }

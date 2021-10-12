@@ -20,10 +20,8 @@ export class ImageService {
     return this.http.get(`${baseUrl}/label/${label}`);
   }
 
-  delete(objectId: any): Observable<any> {
-    let httpParams = new HttpParams().set('_id', objectId);
-    let options = { params: httpParams };
-    return this.http.delete(`${baseUrl}/${objectId}`, options);
+  delete(fileKey: any): Observable<any> {
+    return this.http.delete(`${baseUrl}/${fileKey}`);
   }
 
 }

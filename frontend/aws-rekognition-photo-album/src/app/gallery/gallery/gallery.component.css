@@ -26,6 +26,7 @@
 	margin-top: 5px ;
   }
 
-  a.btn.btn-outline-secondary.delete {
+  button.btn-outline-secondary.delete {
+	margin-top: 5px;
 	width: 100%;
   }

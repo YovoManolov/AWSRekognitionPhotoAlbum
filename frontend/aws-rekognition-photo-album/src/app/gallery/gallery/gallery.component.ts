@@ -80,19 +80,26 @@ export class GalleryComponent implements OnInit {
     return labelNames;
   }
 
-  deleteObjectById(_id?: any) {
-    this.imageService.delete(_id).subscribe(
-      (response) => {
-        console.log(response);
-        this.router.navigate(['/awsRekognitionPhotoAlbum/images/all']);
-      },
-      (error) => {
-        console.log(error);
-        this.router.navigate(['/awsRekognitionPhotoAlbum/images/all']);
-      }
-    );
-    this.imageService.delete(_id)
-    this.router.navigateByUrl('http://localhost:4200/awsRekognitionPhotoAlbum/images/all');
+  async deleteObjectById(imageUrl?: string) {
+    if (imageUrl != undefined) {
+      var fileKey = imageUrl.split("/").pop();
+      this.imageService.delete(fileKey).subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      this.reloadCurrentPage();
+    }
   }
 
+  async reloadCurrentPage() {
+    await new Promise(f => setTimeout(f, 3000));
+    this.router.navigateByUrl(this.router.url).then(() => {
+      window.location.reload();
+    });
+  }
 }
+
