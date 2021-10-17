@@ -6,7 +6,7 @@ from flask.json import jsonify
 from flask_mongoengine import MongoEngine
 from bson.objectid import ObjectId
 from flask import Flask
-from callToAws.imageOperations import getAllImageDocumentsFromFile, getAllImageDocuments, deleteS3Object
+from callToAws.imageOperations import getAllImageDocuments, deleteS3Object
 from callToAws.imageOperations import upload_file, getImageDocumentByResourceKey, uploadBase64Image
 from mongo_constants import mongodb_passowrd, database_name
 from flask_cors import CORS, cross_origin
