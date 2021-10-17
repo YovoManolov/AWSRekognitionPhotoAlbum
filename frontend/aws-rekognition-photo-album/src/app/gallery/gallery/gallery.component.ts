@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import ObjectID from 'bson-objectid';
-import { ObjectId } from 'mongoose';
 import { ImageService } from 'src/app/image/image-service/image.service';
 import { Image } from 'src/app/models/image/image.module';
 import { Label } from 'src/app/models/labels/label.module';

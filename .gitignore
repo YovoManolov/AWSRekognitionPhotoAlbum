@@ -135,3 +135,7 @@ backend/FlaskRestApi/labels_rest_api/callToAws/aws_constants.py
 frontend/aws-rekognition-photo-album/src/environments/environment.ts
 backend/FlaskRestApi/labels_rest_api/aws_constants.py
 backend/FlaskRestApi/labels_rest_api/mongo_constants.py
+backend/FlaskRestApi/labels_rest_api/client_secret.json
+backend/FlaskRestApi/aws_constants.py
+backend/FlaskRestApi/mongo_constants.py
+backend/FlaskRestApi/client_secret.json
