@@ -6,6 +6,7 @@ from flask.json import jsonify
 from flask_mongoengine import MongoEngine
 from bson.objectid import ObjectId
 from flask import Flask
+from models import User
 from callToAws.imageOperations import getAllImageDocuments, deleteS3Object
 from callToAws.imageOperations import upload_file, getImageDocumentByResourceKey, uploadBase64Image
 from mongo_constants import mongodb_passowrd, database_name
@@ -76,10 +77,6 @@ def api_images():
         return uploadImage(base64Image, fullFilePath)
 
 
-# @app.route("/user/signup", methods=['GET'])
-# return
-
-
 def retrieveAllImages():
     images = []
     for image in Image.objects:
@@ -147,6 +144,11 @@ def getImageById(idOfImageToGet: str):
 def deleteMongoImage(fileKey: ObjectId):
     obj = Image.objects(Image__icontains=fileKey).first()
     obj.delete()
+
+
+@app.route("/user/signup", methods=['GET'])
+def signup():
+    return User().signup()
 
 
 if __name__ == "__main__":
