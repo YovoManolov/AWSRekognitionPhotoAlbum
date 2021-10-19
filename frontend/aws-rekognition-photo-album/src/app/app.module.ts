@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadService } from './image/image-service/upload-service/file-upload.service';
 import { UploadImageComponent } from './image/upload-image/upload-image.component';
+import { SignupComponent } from './users/signup/signup.component';
+import { SigninComponent } from './users/signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { UploadImageComponent } from './image/upload-image/upload-image.componen
     NavbarComponent,
     GalleryComponent,
     ImageFilterPipe,
-    UploadImageComponent
+    UploadImageComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,

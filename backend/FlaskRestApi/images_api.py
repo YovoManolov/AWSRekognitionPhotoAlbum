@@ -6,12 +6,13 @@ from flask.json import jsonify
 from flask_mongoengine import MongoEngine
 from bson.objectid import ObjectId
 from flask import Flask
-from models import User
 from callToAws.imageOperations import getAllImageDocuments, deleteS3Object
 from callToAws.imageOperations import upload_file, getImageDocumentByResourceKey, uploadBase64Image
 from mongo_constants import mongodb_passowrd, database_name
 from flask_cors import CORS, cross_origin
 from mongoengine.fields import EmbeddedDocumentField, ListField
+import uuid
+import hashlib
 
 app = Flask(__name__)
 CORS(app)
@@ -48,6 +49,19 @@ class Image(db.Document):
         }
 
 
+class User(db.Document):
+    _id = ObjectId
+    Email = db.StringField()
+    Password = db.StringField()
+
+    def toJson(self):
+        return{
+            "_id": self._id,
+            "Email": self.Email,
+            "Password": self.Password
+        }
+
+
 @app.route('/')
 @cross_origin()
 def flask_mongodb_atlas():
@@ -58,6 +72,7 @@ def flask_mongodb_atlas():
 def populate_images():
     for newMongoImageJson in getAllImageDocuments():
         createImage(newMongoImageJson)
+        return make_response("", 204)
 
 
 def createImage(newMongoImageJson: dict):
@@ -146,9 +161,26 @@ def deleteMongoImage(fileKey: ObjectId):
     obj.delete()
 
 
-@app.route("/user/signup", methods=['GET'])
+@app.route("/user/signup", methods=['POST'])
 def signup():
-    return User().signup()
+    newMongoUserJson = request.json
+    createUser(newMongoUserJson)
+    return make_response("", 204)
+
+
+@app.route("/user/checkPassword", methods=['POST'])
+def checkPassword(email: str, passwordFromAngularToCheck: str):
+    userFound = User.objects(Email__icontains=email).first()
+    passwordFromMongoToCheck = userFound.Password
+    return passwordFromMongoToCheck.__eq__(passwordFromAngularToCheck)
+
+
+def createUser(newMongoUserJson: dict):
+    encryptedPassword = newMongoUserJson['Password']
+    newMongoUserDoc = User(_id=uuid.uuid4.hex,
+                           Email=newMongoUserJson['Email'],
+                           Password=encryptedPassword)
+    newMongoUserDoc.save()
 
 
 if __name__ == "__main__":
