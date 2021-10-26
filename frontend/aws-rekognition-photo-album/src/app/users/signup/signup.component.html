@@ -5,31 +5,60 @@
                 <div class="card-body p-4 p-sm-5">
                     <h5 class="card-title text-center mb-5 fw-light fs-5">Sign
                         Up</h5>
-                    <form>
+                    <form [formGroup]="signupForm" #formDir="ngForm"
+                        (ngSubmit)="onSubmit()"
+                        class="needs-validation" novalidate>
+
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control"
-                                id="emailInput"
-                                placeholder="name@example.com">
-                            <label for="emailInput">Email address</label>
+                                formControlName="email"
+                                id="email"
+                                placeholder="name@example.com" required>
+                            <label for="email">Email address</label>
+                            <div *ngIf="email.invalid && (email.dirty ||
+                                email.touched)" class="alert alert-danger">
+                                <label *ngIf="email.errors?.required">
+                                    Email is required.
+                                </label>
+                                <label *ngIf="email.errors?.minlength">
+                                    Email must be at least 5 characters long.
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control"
+                                id="password" formControlName="password"
+                                placeholder="Password" required>
+                            <label for="password">Password</label>
+                            <div *ngIf="password.invalid && (password.dirty ||
+                                password.touched)" class="alert alert-danger">
+                                <div *ngIf="password.errors?.required">
+                                    Password is required.
+                                </div>
+                                <div *ngIf="password.errors?.minlength">
+                                    Password must be at least 5 characters long.
+                                </div>
+                            </div>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control"
-                                id="floatingPassword" placeholder="Password">
-                            <label for="floatingPassword">Password</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control"
-                                id="confirmPassword" placeholder="Confirm
-                                Password">
-                            <label for="floatingPassword">Confirm password</label>
-                        </div>
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox"
-                                id="rememberPasswordCheck">
-                            <label class="form-check-label"
-                                for="rememberPasswordCheck">
-                                Remember password
-                            </label>
+                                id="confirmPassword"
+                                formControlName="confirmPassword"
+                                placeholder="Confirm Password" required>
+                            <label for="confirmPassword">Confirm password</label>
+                            <div *ngIf="confirmPassword.invalid &&
+                                (confirmPassword.dirty ||
+                                confirmPassword.touched)" class="alert
+                                alert-danger">
+                                <div *ngIf="confirmPassword.errors?.required">
+                                    Password is required.
+                                </div>
+                                <div
+                                    *ngIf="confirmPassword.errors?.matchPassword">
+                                    Confirm passowrd does not match password.
+                                </div>
+                            </div>
                         </div>
                         <div class="d-grid">
                             <button class="btn btn-primary btn-login

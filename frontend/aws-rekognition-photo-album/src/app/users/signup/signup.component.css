@@ -19,3 +19,7 @@ body {
     background-color: #3b5998;
   }
   
+  .cross-validation-error input {
+    border-left: 5px solid red;
+  }
+  

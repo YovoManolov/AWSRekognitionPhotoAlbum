@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ReturnStatement } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -23,14 +24,11 @@ export class UserService {
       JSON.stringify(data),
       { headers: this.headers }
     )
-
-
-    return this.http.get(`${baseUrl}`);
   }
 
-  signIn(): Observable<any> {
-    return this.http.get(`${baseUrl}`);
-  }
+  // signIn(): Observable<any> {
+  //   return;
+  // }
 
 }
 

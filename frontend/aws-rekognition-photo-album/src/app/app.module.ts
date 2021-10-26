@@ -25,6 +25,7 @@ import { SigninComponent } from './users/signin/signin.component';
     UploadImageComponent,
     SignupComponent,
     SigninComponent
+
   ],
   imports: [
     BrowserModule,
