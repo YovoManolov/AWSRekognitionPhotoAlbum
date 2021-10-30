@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ImageService } from 'src/app/image/image-service/image.service';
 import { Image } from 'src/app/models/image/image.module';
 import { Label } from 'src/app/models/labels/label.module';
+import { UserService } from 'src/app/user-service/user.service';
 
 @Component({
   selector: 'app-gallery',
@@ -19,6 +20,7 @@ export class GalleryComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private imageService: ImageService,
+    private userService: UserService,
     private router: Router) { }
 
   ngOnInit(): void {

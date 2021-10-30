@@ -6,6 +6,7 @@ from flask.json import jsonify
 from flask_mongoengine import MongoEngine
 from bson.objectid import ObjectId
 from flask import Flask
+from mongoengine.queryset.visitor import Q
 from callToAws.imageOperations import getAllImageDocuments, deleteS3Object
 from callToAws.imageOperations import upload_file, getImageDocumentByResourceKey, uploadBase64Image
 from mongo_constants import mongodb_passowrd, database_name
@@ -126,6 +127,12 @@ def getResourceKeyFromFilePath(filePath: str):
     return 'resources/' + os.path.basename(filePath)
 
 
+@app.route('/awsRekognitionPhotoAlbum/images/<_id>', methods=['GET'])
+@cross_origin()
+def api_each_image(_id):
+    return getImageById(_id)
+
+
 @app.route('/awsRekognitionPhotoAlbum/images/label/<labelToFind>', methods=['GET'])
 @cross_origin()
 def api_watch_images(labelToFind):
@@ -133,10 +140,12 @@ def api_watch_images(labelToFind):
     return make_response(jsonify(images), 200)
 
 
-@app.route('/awsRekognitionPhotoAlbum/images/<_id>', methods=['GET'])
+@app.route('/awsRekognitionPhotoAlbum/images/user/<userEmail>/label/<labelToFind>', methods=['GET'])
 @cross_origin()
-def api_each_image(_id):
-    return getImageById(_id)
+def api_watch_images(userEmail, labelToFind):
+    images = Image.objects.filter(
+        (Q(User=userEmail) and Q(Labels__Name__icontains=labelToFind)))
+    return make_response(jsonify(images), 200)
 
 
 @app.route('/awsRekognitionPhotoAlbum/images/<fileKey>', methods=['DELETE'])

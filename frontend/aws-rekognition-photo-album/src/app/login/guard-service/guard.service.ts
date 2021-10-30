@@ -9,7 +9,6 @@ import { map } from 'rxjs/operators';
 })
 export class GuardService {
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     public socialAuthService: SocialAuthService
   ) { }
