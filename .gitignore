@@ -140,3 +140,4 @@ backend/FlaskRestApi/aws_constants.py
 backend/FlaskRestApi/mongo_constants.py
 backend/FlaskRestApi/client_secret.json
 frontend/aws-rekognition-photo-album/src/environments/environment.ts
+frontend/aws-rekognition-photo-album/src/environments/environment.ts

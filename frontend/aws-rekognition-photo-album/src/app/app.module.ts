@@ -13,10 +13,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadService } from './image/image-service/upload-service/file-upload.service';
 import { UploadImageComponent } from './image/upload-image/upload-image.component';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
+import { LoginComponent } from './login/login.component';
+import { environment } from 'src/environments/environment';
+import { GuardService } from './login/guard-service/guard.service';
 
+const GOOGLE_CLIENT_ID = environment.google_client_Id
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     NavbarComponent,
     GalleryComponent,
     ImageFilterPipe,
@@ -27,11 +33,31 @@ import { UploadImageComponent } from './image/upload-image/upload-image.componen
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    SocialLoginModule,
     FormsModule,
     BrowserAnimationsModule,
     MatCardModule
   ],
-  providers: [ImageService, FileUploadService, ImageFilterPipe],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: true,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              GOOGLE_CLIENT_ID
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    },
+    GuardService,
+    ImageService,
+    FileUploadService,
+    ImageFilterPipe
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

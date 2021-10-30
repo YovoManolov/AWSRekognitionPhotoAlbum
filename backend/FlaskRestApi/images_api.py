@@ -76,10 +76,6 @@ def api_images():
         return uploadImage(base64Image, fullFilePath)
 
 
-# @app.route("/user/signup", methods=['GET'])
-# return
-
-
 def retrieveAllImages():
     images = []
     for image in Image.objects:
