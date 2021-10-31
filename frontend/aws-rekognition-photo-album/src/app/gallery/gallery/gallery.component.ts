@@ -31,7 +31,12 @@ export class GalleryComponent implements OnInit {
     if (this.filterParam === "all") {
       this.loadImages();
     } else {
-      this.loadImagesByLabel(this.filterParam)
+      let userEmail = this.userService.getUserEmail();
+      if (userEmail === "yovo131@gmail.com") {
+        return this.loadImagesByLabel(this.filterParam);
+      } else {
+        this.loadImagesByUserEmailAndLabel(userEmail, this.filterParam)
+      }
     }
   }
 
@@ -47,6 +52,16 @@ export class GalleryComponent implements OnInit {
 
   loadImagesByLabel(label: String) {
     this.imageService.getImagesByLabel(label).subscribe((images: Image[]) => {
+      this.visibleImages = images
+      this.loadAllLabels();
+    },
+      error => {
+        console.log(error);
+      });
+  }
+
+  loadImagesByUserEmailAndLabel(userEmail: String, label: String) {
+    this.imageService.getImagesByUserAndLabel(userEmail, label).subscribe((images: Image[]) => {
       this.visibleImages = images
       this.loadAllLabels();
     },
@@ -102,4 +117,6 @@ export class GalleryComponent implements OnInit {
     });
   }
 }
+
+
 

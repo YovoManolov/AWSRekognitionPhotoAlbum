@@ -8,15 +8,15 @@ const baseUrl = 'http://localhost:8000/awsRekognitionPhotoAlbum/users';
 })
 export class UserService {
 
-  socialUser!: SocialUser;
-  constructor(public socialAuthService: SocialAuthService) { }
+  private socialUser!: SocialUser;
+  constructor(private socialAuthService: SocialAuthService) { }
 
   getUserEmail(): string {
     let socialUser = this.getSocialUser()
     return socialUser.email;
   }
 
-  getSocialUser(): SocialUser {
+  private getSocialUser(): SocialUser {
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
       console.log(this.socialUser);

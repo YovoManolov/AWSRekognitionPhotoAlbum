@@ -12,8 +12,6 @@ from callToAws.imageOperations import upload_file, getImageDocumentByResourceKey
 from mongo_constants import mongodb_passowrd, database_name
 from flask_cors import CORS, cross_origin
 from mongoengine.fields import EmbeddedDocumentField, ListField
-import uuid
-import hashlib
 
 app = Flask(__name__)
 CORS(app)
@@ -41,25 +39,14 @@ class Image(db.Document):
     _id = ObjectId
     Image = db.StringField()
     Labels = ListField(EmbeddedDocumentField(Labels))
+    User = db.StringField()
 
     def toJson(self):
         return{
             "_id": self._id,
             "Image": self.Image,
-            "Labels": Labels.toJson(self.Labels)
-        }
-
-
-class User(db.Document):
-    _id = ObjectId
-    Email = db.StringField()
-    Password = db.StringField()
-
-    def toJson(self):
-        return{
-            "_id": self._id,
-            "Email": self.Email,
-            "Password": self.Password
+            "Labels": Labels.toJson(self.Labels),
+            "User": self.User
         }
 
 
@@ -142,9 +129,9 @@ def api_watch_images(labelToFind):
 
 @app.route('/awsRekognitionPhotoAlbum/images/user/<userEmail>/label/<labelToFind>', methods=['GET'])
 @cross_origin()
-def api_watch_images(userEmail, labelToFind):
+def api_get_imagesByEmailAndLabel(userEmail, labelToFind):
     images = Image.objects.filter(
-        (Q(User=userEmail) and Q(Labels__Name__icontains=labelToFind)))
+        User=userEmail, Labels__Name__icontains=labelToFind)
     return make_response(jsonify(images), 200)
 
 
@@ -168,28 +155,6 @@ def getImageById(idOfImageToGet: str):
 def deleteMongoImage(fileKey: ObjectId):
     obj = Image.objects(Image__icontains=fileKey).first()
     obj.delete()
-
-
-@app.route("/user/signup", methods=['POST'])
-def signup():
-    newMongoUserJson = request.json
-    createUser(newMongoUserJson)
-    return make_response("", 204)
-
-
-@app.route("/user/checkPassword", methods=['POST'])
-def checkPassword(email: str, passwordFromAngularToCheck: str):
-    userFound = User.objects(Email__icontains=email).first()
-    passwordFromMongoToCheck = userFound.Password
-    return passwordFromMongoToCheck.__eq__(passwordFromAngularToCheck)
-
-
-def createUser(newMongoUserJson: dict):
-    encryptedPassword = newMongoUserJson['Password']
-    newMongoUserDoc = User(_id=uuid.uuid4.hex,
-                           Email=newMongoUserJson['Email'],
-                           Password=encryptedPassword)
-    newMongoUserDoc.save()
 
 
 if __name__ == "__main__":
