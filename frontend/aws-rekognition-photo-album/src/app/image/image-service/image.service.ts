@@ -28,4 +28,8 @@ export class ImageService {
     return this.http.delete(`${baseUrl}/${fileKey}`);
   }
 
+  getUserType(userEmail: string): Observable<any> {
+    return this.http.get(`${baseUrl}/getUserType/${userEmail}`);
+  }
+
 }

@@ -1,3 +1,4 @@
+import enum
 import os
 from bson.objectid import ObjectId
 from flask import request
@@ -47,6 +48,19 @@ class Image(db.Document):
             "Image": self.Image,
             "Labels": Labels.toJson(self.Labels),
             "User": self.User
+        }
+
+
+class User(db.Document):
+    _id = ObjectId
+    Email = db.StringField()
+    Type = db.StringField()
+
+    def toJson(self):
+        return{
+            "_id": self._id,
+            "Email": self.Email,
+            "Type": self.Type,
         }
 
 
@@ -116,7 +130,7 @@ def getResourceKeyFromFilePath(filePath: str):
 
 @app.route('/awsRekognitionPhotoAlbum/images/<_id>', methods=['GET'])
 @cross_origin()
-def api_each_image(_id):
+def apiGetImageById(_id):
     return getImageById(_id)
 
 
@@ -133,6 +147,16 @@ def api_get_imagesByEmailAndLabel(userEmail, labelToFind):
     images = Image.objects.filter(
         User=userEmail, Labels__Name__icontains=labelToFind)
     return make_response(jsonify(images), 200)
+
+
+@app.route('/awsRekognitionPhotoAlbum/getUserType/<userEmail>', methods=['GET'])
+@cross_origin()
+def api_get_userType(userEmail):
+    user_obj = User.objects(Email=userEmail).first()
+    if user_obj:
+        return make_response(jsonify(user_obj), 200)
+    else:
+        return make_response("", 404)
 
 
 @app.route('/awsRekognitionPhotoAlbum/images/<fileKey>', methods=['DELETE'])
@@ -155,6 +179,19 @@ def getImageById(idOfImageToGet: str):
 def deleteMongoImage(fileKey: ObjectId):
     obj = Image.objects(Image__icontains=fileKey).first()
     obj.delete()
+
+
+@app.route("/user/signup", methods=['POST'])
+def signup():
+    newMongoUserJson = request.json
+    createUser(newMongoUserJson)
+    return make_response("", 204)
+
+
+def createUser(newMongoUserJson: dict):
+    newMongoUserDoc = User(Email=newMongoUserJson['Email'],
+                           Type=newMongoUserJson["Type"])
+    newMongoUserDoc.save()
 
 
 if __name__ == "__main__":

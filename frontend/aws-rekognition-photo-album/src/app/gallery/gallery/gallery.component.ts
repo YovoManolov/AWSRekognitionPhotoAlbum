@@ -31,9 +31,9 @@ export class GalleryComponent implements OnInit {
     if (this.filterParam === "all") {
       this.loadImages();
     } else {
-      let userEmail = this.userService.getUserEmail();
-      if (userEmail === "yovo131@gmail.com") {
-        return this.loadImagesByLabel(this.filterParam);
+      let userEmail: string = this.userService.getUserEmail()
+      if (this.userService.getUserType(userEmail) === "admin") {
+        this.loadImagesByLabel(this.filterParam);
       } else {
         this.loadImagesByUserEmailAndLabel(userEmail, this.filterParam)
       }
