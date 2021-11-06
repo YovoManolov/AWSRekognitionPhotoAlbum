@@ -16,11 +16,15 @@ export class ImageService {
     return this.http.get(`${baseUrl}/images`);
   }
 
-  getImagesByLabel(label: String): Observable<any> {
+  getUserType(userEmail: string): Observable<any> {
+    return this.http.get(`${baseUrl}/getUserType/${userEmail}`);
+  }
+
+  getImagesByLabel(label: string): Observable<any> {
     return this.http.get(`${baseUrl}/images/label/${label}`);
   }
 
-  getImagesByUserAndLabel(userEmail: String, label: String): Observable<any> {
+  getImagesByUserAndLabel(userEmail: string, label: string): Observable<any> {
     return this.http.get(`${baseUrl}/images/user/${userEmail}/label/${label}`);
   }
 
@@ -28,8 +32,5 @@ export class ImageService {
     return this.http.delete(`${baseUrl}/${fileKey}`);
   }
 
-  getUserType(userEmail: string): Observable<any> {
-    return this.http.get(`${baseUrl}/getUserType/${userEmail}`);
-  }
 
 }

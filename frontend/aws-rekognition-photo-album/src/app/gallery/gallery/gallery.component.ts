@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ImageService } from 'src/app/image/image-service/image.service';
 import { Image } from 'src/app/models/image/image.module';
 import { Label } from 'src/app/models/labels/label.module';
+import { User } from 'src/app/models/user/user.module';
 import { UserService } from 'src/app/user-service/user.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class GalleryComponent implements OnInit {
   visibleImages: Array<Image> = [];
   visibleLabels: Array<String> = [];
   filterParam: string = "";
+  user: User = new User();
 
   constructor(
     private route: ActivatedRoute,
@@ -23,7 +25,7 @@ export class GalleryComponent implements OnInit {
     private userService: UserService,
     private router: Router) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.route.params.subscribe(params => {
       this.filterParam = params['filterParam'];
     });
@@ -31,13 +33,22 @@ export class GalleryComponent implements OnInit {
     if (this.filterParam === "all") {
       this.loadImages();
     } else {
-      let userEmail: string = this.userService.getUserEmail()
-      if (this.userService.getUserType(userEmail) === "admin") {
+      this.loadImagesByLabelAccordingUserType();
+    }
+  }
+
+  loadImagesByLabelAccordingUserType() {
+    let userEmail = this.userService.getSocialUser().email;
+    this.imageService.getUserType(userEmail).subscribe((user: User) => {
+      if (user.Type === "admin") {
         this.loadImagesByLabel(this.filterParam);
       } else {
-        this.loadImagesByUserEmailAndLabel(userEmail, this.filterParam)
+        this.loadImagesByUserEmailAndLabel(userEmail, this.filterParam);
       }
-    }
+    },
+      error => {
+        console.log(error);
+      });
   }
 
   loadImages() {
@@ -50,7 +61,7 @@ export class GalleryComponent implements OnInit {
       });
   }
 
-  loadImagesByLabel(label: String) {
+  loadImagesByLabel(label: string) {
     this.imageService.getImagesByLabel(label).subscribe((images: Image[]) => {
       this.visibleImages = images
       this.loadAllLabels();
@@ -60,7 +71,7 @@ export class GalleryComponent implements OnInit {
       });
   }
 
-  loadImagesByUserEmailAndLabel(userEmail: String, label: String) {
+  loadImagesByUserEmailAndLabel(userEmail: string, label: string) {
     this.imageService.getImagesByUserAndLabel(userEmail, label).subscribe((images: Image[]) => {
       this.visibleImages = images
       this.loadAllLabels();
