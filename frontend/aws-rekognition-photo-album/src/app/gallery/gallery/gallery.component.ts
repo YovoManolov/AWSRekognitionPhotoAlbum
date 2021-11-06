@@ -12,12 +12,15 @@ import { UserService } from 'src/app/user-service/user.service';
   styleUrls: ['./gallery.component.css'],
 })
 export class GalleryComponent implements OnInit {
+
   title = 'Recent Photos';
   @Input() filterBy: string = 'all';
   visibleImages: Array<Image> = [];
+  labelImages: Array<Image> = [];
   visibleLabels: Array<String> = [];
   filterParam: string = "";
-  user: User = new User();
+  userEmail: string = "";
+  userType: string = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -29,21 +32,19 @@ export class GalleryComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.filterParam = params['filterParam'];
     });
-
+    this.userEmail = this.userService.getUserEmail();
+    this.setUserType();
     if (this.filterParam === "all") {
-      this.loadImages();
+      this.loadAllImages();
     } else {
       this.loadImagesByLabelAccordingUserType();
     }
   }
 
-  loadImagesByLabelAccordingUserType() {
-    let userEmail = this.userService.getSocialUser().email;
-    this.imageService.getUserType(userEmail).subscribe((user: User) => {
-      if (user.Type === "admin") {
-        this.loadImagesByLabel(this.filterParam);
-      } else {
-        this.loadImagesByUserEmailAndLabel(userEmail, this.filterParam);
+  setUserType() {
+    this.imageService.getUserType(this.userEmail).subscribe((user: User) => {
+      if (user.Type !== undefined) {
+        this.userType = user.Type;
       }
     },
       error => {
@@ -51,19 +52,37 @@ export class GalleryComponent implements OnInit {
       });
   }
 
-  loadImages() {
+  loadAllImages() {
     this.imageService.getAll().subscribe((allImages: Image[]) => {
       this.visibleImages = allImages
-      this.loadAllLabels();
+      this.imageService.getUserType(this.userEmail).subscribe((user: User) => {
+        if (user.Type === "admin") {
+          this.labelImages = this.visibleImages;
+        } else {
+          this.labelImages = this.visibleImages.filter(image => image.User == this.userEmail);
+        }
+        this.loadAllLabels();
+      });
     },
       error => {
         console.log(error);
       });
   }
 
+  loadImagesByLabelAccordingUserType() {
+    this.imageService.getUserType(this.userEmail).subscribe((user: User) => {
+      if (user.Type === "admin") {
+        this.loadImagesByLabel(this.filterParam);
+      } else {
+        this.loadImagesByUserEmailAndLabel(this.userEmail, this.filterParam);
+      }
+    });
+  }
+
   loadImagesByLabel(label: string) {
     this.imageService.getImagesByLabel(label).subscribe((images: Image[]) => {
       this.visibleImages = images
+      this.labelImages = images;
       this.loadAllLabels();
     },
       error => {
@@ -74,6 +93,7 @@ export class GalleryComponent implements OnInit {
   loadImagesByUserEmailAndLabel(userEmail: string, label: string) {
     this.imageService.getImagesByUserAndLabel(userEmail, label).subscribe((images: Image[]) => {
       this.visibleImages = images
+      this.labelImages = images;
       this.loadAllLabels();
     },
       error => {
@@ -83,8 +103,8 @@ export class GalleryComponent implements OnInit {
 
   loadAllLabels() {
     let labelNames!: Array<String>;
-    if (this.visibleImages != undefined && this.visibleImages.length > 0) {
-      for (let image of this.visibleImages) {
+    if (this.labelImages != undefined && this.labelImages.length > 0) {
+      for (let image of this.labelImages) {
         let imageLabels = image.Labels;
         if (imageLabels != undefined) {
           labelNames = this.getLabelNamesFromLabelObject(imageLabels)
@@ -127,6 +147,7 @@ export class GalleryComponent implements OnInit {
       window.location.reload();
     });
   }
+
 }
 
 

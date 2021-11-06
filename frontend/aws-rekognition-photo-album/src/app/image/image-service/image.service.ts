@@ -16,10 +16,6 @@ export class ImageService {
     return this.http.get(`${baseUrl}/images`);
   }
 
-  getUserType(userEmail: string): Observable<any> {
-    return this.http.get(`${baseUrl}/getUserType/${userEmail}`);
-  }
-
   getImagesByLabel(label: string): Observable<any> {
     return this.http.get(`${baseUrl}/images/label/${label}`);
   }
@@ -28,8 +24,12 @@ export class ImageService {
     return this.http.get(`${baseUrl}/images/user/${userEmail}/label/${label}`);
   }
 
+  getUserType(userEmail: string): Observable<any> {
+    return this.http.get(`${baseUrl}/getUserType/${userEmail}`);
+  }
+
   delete(fileKey: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${fileKey}`);
+    return this.http.delete(`${baseUrl}/images/${fileKey}`);
   }
 
 

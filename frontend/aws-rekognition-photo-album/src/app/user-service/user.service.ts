@@ -10,7 +10,11 @@ export class UserService {
   private socialUser!: SocialUser;
   constructor(private socialAuthService: SocialAuthService) { }
 
-  public getSocialUser(): SocialUser {
+  public getUserEmail(): string {
+    return this.getSocialUser().email;
+  }
+
+  private getSocialUser(): SocialUser {
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
       console.log(this.socialUser);

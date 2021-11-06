@@ -21,10 +21,10 @@ def getAllImageDocuments():
     return mongoImageDocuments
 
 
-def getImageDocumentByResourceKey(resourceKey: str):
+def getImageDocumentByResourceKey(resourceKey: str, userEmail: str):
     object = s3_resource.Object(bucket_name, resourceKey)
     url = generateUrlFromBucketObject(object)
-    return generateJsonFromUrl(url, object.key)
+    return generateJsonFromUrl(url, object.key, userEmail)
 
 
 def getAllImageDocumentsFromFile():  # For debug purposes
@@ -40,9 +40,10 @@ def generateUrlFromBucketObject(object: any):
     return "https://%s.s3.amazonaws.com/%s" % (bucket_name, object.key)
 
 
-def generateJsonFromUrl(resourceUrl: str, resourceName):
+def generateJsonFromUrl(resourceUrl: str, resourceName: str, userEmail: str):
     mongoImageDoc = {"Image": resourceUrl,
-                     "Labels": getLabels(resourceName).get("Labels")}
+                     "Labels": getLabels(resourceName).get("Labels"),
+                     "User": userEmail}
     return mongoImageDoc
 
 

@@ -15,10 +15,11 @@ export class FileUploadService {
     return this.http.post(uploadUrl, value);
   }
 
-  public upload(fullFilePath: any, base64ImageSrc: any) {
+  public upload(fullFilePath: any, base64ImageSrc: any, userEmail: any) {
     let formData: any = new FormData();
     formData.append("base64Image", base64ImageSrc);
     formData.append("fullFilePath", fullFilePath);
+    formData.append("userEmail", userEmail)
     return this.http.post(uploadUrl, formData).subscribe(
       res => {
         console.log(res);

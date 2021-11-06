@@ -10,7 +10,12 @@
                 class="gallery__image" />
         </a>
         <figcaption *ngFor="let label of image.Labels">{{label.Name}}</figcaption>
-        <button class="btn btn-outline-secondary delete"
-            (click)="deleteObjectById(image.Image)">Delete</button>
+        <div *ngIf="userType == 'user' && image.User !== userEmail;else
+            elseDeleteButon">
+        </div>
+        <ng-template #elseDeleteButon>
+            <button class="btn btn-outline-secondary delete"
+                (click)="deleteObjectById(image.Image)">Delete</button>
+        </ng-template>
     </figure>
 </div>

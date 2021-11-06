@@ -1,0 +1,23 @@
+[
+  {
+    "_id": {
+      "$oid": "6182f43902cff90423cd9bb6"
+    },
+    "Email": "testawsphotoalbum1@gmail.com",
+    "Type": "user"
+  },
+  {
+    "_id": {
+      "$oid": "6182f43902cff90423cd9bb7"
+    },
+    "Email": "testawsphotoalbum2@gmail.com",
+    "Type": "user"
+  },
+  {
+    "_id": {
+      "$oid": "6182f43902cff90423cd9bb8"
+    },
+    "Email": "yovo131@gmail.com",
+    "Type": "admin"
+  }
+]

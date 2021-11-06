@@ -1,4 +1,3 @@
-import enum
 import os
 from bson.objectid import ObjectId
 from flask import request
@@ -7,7 +6,6 @@ from flask.json import jsonify
 from flask_mongoengine import MongoEngine
 from bson.objectid import ObjectId
 from flask import Flask
-from mongoengine.queryset.visitor import Q
 from callToAws.imageOperations import getAllImageDocuments, deleteS3Object
 from callToAws.imageOperations import upload_file, getImageDocumentByResourceKey, uploadBase64Image
 from mongo_constants import mongodb_passowrd, database_name
@@ -79,7 +77,8 @@ def populate_images():
 
 def createImage(newMongoImageJson: dict):
     newMongoImageDoc = Image(Image=newMongoImageJson['Image'],
-                             Labels=newMongoImageJson['Labels'])
+                             Labels=newMongoImageJson['Labels'],
+                             User=newMongoImageJson["User"])
     newMongoImageDoc.save()
 
 
@@ -91,7 +90,8 @@ def api_images():
     elif request.method == "POST":
         base64Image = request.form["base64Image"]
         fullFilePath = request.form["fullFilePath"]
-        return uploadImage(base64Image, fullFilePath)
+        userEmail = request.form["userEmail"]
+        return uploadImage(base64Image, fullFilePath, userEmail)
 
 
 def retrieveAllImages():
@@ -101,10 +101,11 @@ def retrieveAllImages():
     return make_response(jsonify(images), 200)
 
 
-def uploadImage(base64Image: str, filePath: str):
+def uploadImage(base64Image: str, filePath: str, userEmail: str):
     resource_key = getResourceKeyFromFilePath(filePath)
     if uploadBase64Image(base64Image, resource_key):
-        newMongoImageJson = getImageDocumentByResourceKey(resource_key)
+        newMongoImageJson = getImageDocumentByResourceKey(
+            resource_key, userEmail)
         createImage(newMongoImageJson)
         return make_response("", 204)
     else:
