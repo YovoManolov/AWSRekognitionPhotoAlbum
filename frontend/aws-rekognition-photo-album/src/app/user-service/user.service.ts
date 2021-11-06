@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
 
 const baseUrl = 'http://localhost:8000/awsRekognitionPhotoAlbum';
