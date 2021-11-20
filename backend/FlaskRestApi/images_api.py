@@ -182,13 +182,6 @@ def deleteMongoImage(fileKey: ObjectId):
     obj.delete()
 
 
-@app.route("/user/signup", methods=['POST'])
-def signup():
-    newMongoUserJson = request.json
-    createUser(newMongoUserJson)
-    return make_response("", 204)
-
-
 def createUser(newMongoUserJson: dict):
     newMongoUserDoc = User(Email=newMongoUserJson['Email'],
                            Type=newMongoUserJson["Type"])

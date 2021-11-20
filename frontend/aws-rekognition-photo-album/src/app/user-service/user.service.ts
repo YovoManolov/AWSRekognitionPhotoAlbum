@@ -7,6 +7,7 @@ const baseUrl = 'http://localhost:8000/awsRekognitionPhotoAlbum';
   providedIn: 'root'
 })
 export class UserService {
+
   private socialUser!: SocialUser;
   constructor(private socialAuthService: SocialAuthService) { }
 
