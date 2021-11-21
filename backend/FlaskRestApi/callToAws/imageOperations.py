@@ -91,7 +91,10 @@ def deleteS3Object(resource_key: str, app):
 def uploadBase64Image(image_base64: str, obj_name: str):
     try:
         image_base64 = image_base64.replace(
-            "data:image/jpeg;base64,", "").rstrip(",")
+            "data:image/jpeg;base64,", "")
+        image_base64 = image_base64.replace(
+            "data:image/png;base64,", "")
+        image_base64 = image_base64.rstrip(",")
         obj = s3_resource.Object(bucket_name, obj_name)
         obj.put(Body=base64.b64decode(image_base64))
     except ClientError as e:

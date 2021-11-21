@@ -72,7 +72,7 @@ def flask_mongodb_atlas():
 def populate_images():
     for newMongoImageJson in getAllImageDocuments():
         createImage(newMongoImageJson)
-        return make_response("", 204)
+        return make_response("", 200)
 
 
 def createImage(newMongoImageJson: dict):
@@ -107,7 +107,7 @@ def uploadImage(base64Image: str, filePath: str, userEmail: str):
         newMongoImageJson = getImageDocumentByResourceKey(
             resource_key, userEmail)
         createImage(newMongoImageJson)
-        return make_response("", 204)
+        return make_response("", 200)
     else:
         return make_response("", 500)
 
@@ -120,7 +120,7 @@ def uploaImageFromFilePath():
     if upload_file(filePath, resource_key):
         newMongoImageJson = getImageDocumentByResourceKey(resource_key)
         createImage(newMongoImageJson)
-        return make_response("", 204)
+        return make_response("", 200)
     else:
         return make_response("", 500)
 
