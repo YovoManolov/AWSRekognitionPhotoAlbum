@@ -16,7 +16,8 @@ def getAllImageDocuments():
     mongoImageDocuments = []
     for object in my_bucket.objects.all():
         url = generateUrlFromBucketObject(object)
-        jsonDict = generateJsonFromUrl(url, object.key)
+        userEmail = "yovo131@gmail.com"
+        jsonDict = generateJsonFromUrl(url, object.key, userEmail)
         mongoImageDocuments.append(jsonDict)
     return mongoImageDocuments
 
