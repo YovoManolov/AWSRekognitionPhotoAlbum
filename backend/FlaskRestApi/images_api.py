@@ -116,9 +116,11 @@ def uploadImage(base64Image: str, filePath: str, userEmail: str):
 @cross_origin()
 def uploaImageFromFilePath():
     filePath = request.form.get("filePath")
+    userEmail = request.form.get("userEmail")
     resource_key = getResourceKeyFromFilePath(filePath)
     if upload_file(filePath, resource_key):
-        newMongoImageJson = getImageDocumentByResourceKey(resource_key)
+        newMongoImageJson = getImageDocumentByResourceKey(
+            resource_key, userEmail)
         createImage(newMongoImageJson)
         return make_response("", 200)
     else:
