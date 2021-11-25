@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImageService } from 'src/app/image/image-service/image.service';
-import { Image } from 'src/app/models/image/image.module';
-import { Label } from 'src/app/models/labels/label.module';
-import { User } from 'src/app/models/user/user.module';
+import { Image } from 'src/app/models/image_model';
+import { Label } from 'src/app/models/label_model';
+import { User } from 'src/app/models/user_model';
 import { UserService } from 'src/app/user-service/user.service';
 
 @Component({
