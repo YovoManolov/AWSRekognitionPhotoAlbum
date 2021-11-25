@@ -4,7 +4,7 @@
     <div *ngIf="isLoggedin === false">
         <div>
             <button type="button" (click)="loginWithGoogle()" class="btn
-                btn-success">SignIn Google</button>
+                btn-outline-secondary">SignIn Google</button>
         </div>
     </div>
 
@@ -25,7 +25,8 @@
                 id="email" readonly>
         </div>
         <br/>
-            <button type="button" (click)="logOut()" class="btn btn-primary">Logout
+            <button type="button" (click)="logOut()" class="btn
+                btn-outline-secondary">Logout
                 from Google</button>
 
 
