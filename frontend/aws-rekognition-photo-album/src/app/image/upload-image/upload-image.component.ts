@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/user-service/user.service';
-import { FileUploadService } from '../image-service/upload-service/file-upload.service';
+import { FileUploadService } from './upload-service/file-upload.service';
 
 @Component({
   selector: 'app-upload-image',

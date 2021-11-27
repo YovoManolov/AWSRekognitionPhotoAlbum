@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FileUploadService } from './image/image-service/upload-service/file-upload.service';
+import { FileUploadService } from './image/upload-image/upload-service/file-upload.service';
 import { UploadImageComponent } from './image/upload-image/upload-image.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 import { LoginComponent } from './login/login.component';
