@@ -27,9 +27,9 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
       this.isLoggedin = (user != null);
-      console.log("test" + this.socialUser);
     });
   }
+
   loginWithGoogle(): void {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
@@ -37,4 +37,5 @@ export class LoginComponent implements OnInit {
   logOut(): void {
     this.socialAuthService.signOut();
   }
+
 }
