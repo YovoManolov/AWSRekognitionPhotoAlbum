@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 const uploadUrl = 'http://localhost:8000/awsRekognitionPhotoAlbum/images';
 

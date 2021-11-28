@@ -32,5 +32,4 @@ export class ImageService {
     return this.http.delete(`${baseUrl}/images/${fileKey}`);
   }
 
-
 }
