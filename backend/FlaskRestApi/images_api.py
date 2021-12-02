@@ -134,7 +134,11 @@ def getResourceKeyFromFilePath(filePath: str):
 @app.route('/awsRekognitionPhotoAlbum/images/<_id>', methods=['GET'])
 @cross_origin()
 def apiGetImageById(_id):
-    return getImageById(_id)
+    image_obj = Image.objects(id=_id).first()
+    if image_obj:
+        return make_response(jsonify(image_obj), 200)
+    else:
+        return make_response("", 404)
 
 
 @app.route('/awsRekognitionPhotoAlbum/images/label/<labelToFind>', methods=['GET'])
@@ -169,14 +173,6 @@ def api_delete(fileKey):
     deleteMongoImage(image.Image)
     deleteS3Object(resource_key, app)
     return make_response("", 200)
-
-
-def getImageById(idOfImageToGet: str):
-    image_obj = Image.objects(id=idOfImageToGet).first()
-    if image_obj:
-        return make_response(jsonify(image_obj), 200)
-    else:
-        return make_response("", 404)
 
 
 def deleteMongoImage(fileKey: ObjectId):
