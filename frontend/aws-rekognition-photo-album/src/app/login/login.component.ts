@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SocialUser, SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
+import { UserService } from '../user-service/user.service';
 
 @Component({
   selector: 'app-login',

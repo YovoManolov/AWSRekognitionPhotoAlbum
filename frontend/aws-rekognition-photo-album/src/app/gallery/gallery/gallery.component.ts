@@ -33,6 +33,7 @@ export class GalleryComponent implements OnInit {
       this.filterParam = params['filterParam'];
     });
     this.userEmail = this.userService.getUserEmail();
+    this.userService.addNewUserIfDoesNotExist(this.userEmail);
     this.setUserType();
     if (this.filterParam === "all") {
       this.loadAllImages();

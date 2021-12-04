@@ -156,6 +156,18 @@ def api_get_imagesByEmailAndLabel(userEmail, labelToFind):
     return make_response(jsonify(images), 200)
 
 
+@app.route('/awsRekognitionPhotoAlbum/addNewUserIfDoesNotExist', methods=['POST'])
+@cross_origin()
+def apiAddNewUserIfDoesNotExists():
+    userEmail = request.form.get("userEmail")
+    if not User.objects(Email=userEmail):
+        newMongoUserDoc = User(Email=userEmail, Type="user")
+        newMongoUserDoc.save()
+        return make_response("", 200)
+    else:
+        return make_response("", 404)
+
+
 @app.route('/awsRekognitionPhotoAlbum/getUserType/<userEmail>', methods=['GET'])
 @cross_origin()
 def api_get_userType(userEmail):
@@ -178,12 +190,6 @@ def api_delete(fileKey):
 def deleteMongoImage(fileKey: ObjectId):
     obj = Image.objects(Image__icontains=fileKey).first()
     obj.delete()
-
-
-def createUser(newMongoUserJson: dict):
-    newMongoUserDoc = User(Email=newMongoUserJson['Email'],
-                           Type=newMongoUserJson["Type"])
-    newMongoUserDoc.save()
 
 
 if __name__ == "__main__":
