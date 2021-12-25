@@ -165,7 +165,7 @@ def apiAddNewUserIfDoesNotExists():
         newMongoUserDoc.save()
         return make_response("", 200)
     else:
-        return make_response("", 404)
+        return make_response("", 500)
 
 
 @app.route('/awsRekognitionPhotoAlbum/getUserType/<userEmail>', methods=['GET'])
