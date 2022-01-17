@@ -188,8 +188,8 @@ def api_delete(fileKey):
 
 
 def deleteMongoImage(fileKey: ObjectId):
-    obj = Image.objects(Image__icontains=fileKey).first()
-    obj.delete()
+    for obj in Image.objects(Image__icontains=fileKey).all():
+        obj.delete()
 
 
 if __name__ == "__main__":
